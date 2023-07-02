@@ -13,10 +13,14 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors:{
-        //bg-indigo-300
-        primary:'#A5B4FC'
+        primary:'#A5B4FC',//bg-indigo-300
+        light:'#E0E7FF',// bg-indigo-100
+        very_light:'#EFF6FF',// bg-indigo-50
+        button:'#C7D2FE',//bg-indigo-200
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 }
