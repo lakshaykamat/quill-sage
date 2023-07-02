@@ -10,7 +10,6 @@ type NavbarAndSidebarProps = {
   setAppState: Dispatch<SetStateAction<string>>,
 }
 type NavBarProps = {
-  setAppState: Dispatch<SetStateAction<string>>,
   setSideBarOpen: Dispatch<SetStateAction<boolean>>
 }
 type SideBarProps = {
@@ -21,15 +20,15 @@ const NavBarAndSideBar = ({ setAppState }: NavbarAndSidebarProps) => {
   const [isSidebarOpen, setSideBarOpen] = useState(false)
   return (
     <>
-      <Navbar setSideBarOpen={setSideBarOpen} setAppState={setAppState} />
+      <Navbar setSideBarOpen={setSideBarOpen} />
       <SideBar isSidebarOpen={isSidebarOpen} setAppState={setAppState} />
     </>
   )
 }
-const Navbar = ({ setSideBarOpen, setAppState }: NavBarProps) => {
+const Navbar = ({ setSideBarOpen }: NavBarProps) => {
   return (
     <>
-      <nav className="fixed top-0 z-50 w-full border-b border-indigo-200 bg-primary dark:bg-gray-800 dark:border-gray-700">
+      <nav className="fixed top-0 z-50 w-full border-b border-button bg-primary dark:bg-gray-800 dark:border-gray-700">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start">
