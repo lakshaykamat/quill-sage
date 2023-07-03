@@ -1,34 +1,59 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Snapnote
+NoteNexus is a frontend notes application built with Next.js and Material-UI, allowing users to create, organize, and share personalized notes effortlessly.
+
+## Features
+
+- User Registration and Authentication
+- Note Creation and Management
+- Personalized Notes Feed
+- Categories and Tagging
+
+## Technologies Used
+
+- Next.js
+- Material-UI
+- Slate.js (for rich text editing)
+- Redux (for state management)
+- Axios (for API requests)
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+```
+git clone https://github.com/your-username/NoteNexus.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install the dependencies:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+cd NoteNexus
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+3. Configure the environment variables:
 
-## Learn More
+Create a `.env` file in the root directory and set the following variables:
 
-To learn more about Next.js, take a look at the following resources:
+```
+NEXT_PUBLIC_API_URL=<your-backend-api-url>
+NEXT_PUBLIC_DEFAULT_FEED_SIZE=10
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. Run the application:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```
+npm run dev
+```
 
-## Deploy on Vercel
+5. Open your browser and navigate to `http://localhost:3000` to access the application.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contributing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Contributions are welcome! If you have any ideas, suggestions, or bug reports, please create an issue or submit a pull request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+Feel free to customize this template by adding or modifying sections based on your specific application and requirements.
