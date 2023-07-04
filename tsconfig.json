@@ -21,7 +21,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/constant/*": ["./src/constants/*"],
+      "@/constant/*": ["./src/app/constants/*"],
       "@/components/*": ["./src/app/components/*"],
       "@/lib/*": ["./src/app/lib/*"],
       "@/styles/*": ["./src/app/styles/*"],

@@ -1,6 +1,6 @@
 import { MdRssFeed } from "react-icons/md"
-import { AppState } from '@/app/constants'
-import { AiFillTags, AiFillSetting } from "react-icons/ai"
+import { AppState } from '../../constants/'
+import { AiFillTags, AiFillSetting ,AiFillFileAdd} from "react-icons/ai"
 import { BsCollection } from "react-icons/bs"
 import { Dispatch, SetStateAction } from "react"
 
@@ -39,13 +39,22 @@ const Sidebar = ({ isSidebarOpen, setAppState }: SideBarProps) => {
                   <span className="flex-1 ml-3 whitespace-nowrap">Tags</span>
                 </a>
               </li>
-              <li>
+              <li onClick={() => setAppState(AppState.COLLECTIONS)}>
                 <a
                   href="#"
                   className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   <BsCollection className="w-6 h-6 text-gray-800" />
                   <span className="flex-1 ml-3 whitespace-nowrap">Collections</span>
+                </a>
+              </li>
+              <li onClick={() => setAppState(AppState.NEW_NOTE)}>
+                <a
+                  href="#"
+                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <AiFillFileAdd className="w-6 h-6 text-gray-800" />
+                  <span className="flex-1 ml-3 whitespace-nowrap">New Note</span>
                 </a>
               </li>
               <li onClick={() => setAppState(AppState.SETTINGS)}>
