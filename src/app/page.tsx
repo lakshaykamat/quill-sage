@@ -1,33 +1,29 @@
-'use client'
-import { useState } from "react";
-import NavBarAndSideBar from "@/components/NavBarAndSideBar";
-import { AppState } from './constants/';
-import Feed from "@/components/Feed";
-import NewNote from "@/components/NewNote";
-import Collections from "@/components/Collections";
+import Card from "./components/Card"
+import { my_notes } from "./data"
 
-export default function Home() {
-  const [appState, setAppState] = useState<string>(AppState.FEED)
-  let content :React.JSX.Element;
-  if (appState === AppState.FEED) {
-    content = <Feed/>
-  } else if (appState === AppState.NEW_NOTE) {
-    content = <NewNote/>
-  }else if(appState === AppState.COLLECTIONS){
-    content = <Collections/>
-  }else if(appState === AppState.COLLECTIONS){
-    content = <h1>Settings</h1>
-  } else {
-    content = <h1>Other</h1>
-  }
+const Feed = () => {
+  const notes = my_notes
   return (
-    <>
-      <NavBarAndSideBar setAppState={setAppState} />
-      <div className="p-4 md:ml-64">
-        <div className="px-1 py-2 sm:px-2 mt-14">
-          {content}
-        </div>
+    <div className="flex flex-col items-center max-w-2xl gap-3 mx-auto">
+      <div className="flex justify-between w-full mb-2">
+        <h1 className="mb-2 text-3xl font-bold text-start">My Feed</h1>
+        <select className="px-3 text-sm rounded-lg bg-button drop-shadow-sm outline-gray-500">
+          <option value="">Most Recent</option>
+          <option value="">Most Liked</option>
+        </select>
       </div>
-    </>
+      {
+        notes.map((note) => {
+          return <Card
+            key={note.id}
+            title={note.title}
+            likes={note.likes}
+            description={note.description}
+            date={note.date}
+            author={note.author} />
+        })
+      }
+    </div>
   )
 }
+export default Feed
