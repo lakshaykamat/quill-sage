@@ -9,7 +9,7 @@ type CardProps = {
 }
 const Card = ({ title, description, date, author, likes }: CardProps) => {
     return (
-        <div className="max-w-2xl p-6 rounded-lg bg-light drop-shadow-md dark:bg-gray-800 dark:border-gray-700 outline-1 outline-black outline">
+        <div className="w-full p-6 rounded-lg outline bg-light drop-shadow-md dark:bg-gray-800 dark:border-gray-700 outline-1 outline-black">
             <a href="#">
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     {title}
