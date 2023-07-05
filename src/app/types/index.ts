@@ -6,9 +6,19 @@ export type TagOption = {
     isDisabled?: boolean
 }
 
+export type NavLink = {
+    id:number
+    name:string,
+    state:string,
+    icon:React.ReactElement,
+    url:string
+}
+
+
 export type Folder = {
     id:number,
-    name:string
+    name:string,
+    notes:Note[]
 }
 
 export type Note = {
