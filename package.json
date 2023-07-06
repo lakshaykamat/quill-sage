@@ -22,6 +22,7 @@
     "@types/node": "20.3.2",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
+    "@types/react-tag-autocomplete": "^6.3.0",
     "autoprefixer": "10.4.14",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.7",
@@ -30,6 +31,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
+    "react-tag-autocomplete": "^6.3.0",
+    "react-tag-input": "^6.8.1",
     "tailwindcss": "3.3.2",
     "typescript": "5.1.6"
   },

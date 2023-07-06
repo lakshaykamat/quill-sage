@@ -742,6 +742,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-tag-autocomplete@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@types/react-tag-autocomplete/-/react-tag-autocomplete-6.3.0.tgz#0a7ade3b48981b096f0960d175e8a860041c742c"
+  integrity sha512-WxAVFlcotjeQKh1UDEjAQwP4dCOtKFrCnSHODhSmBZqDFbjNhhw9QwtZ9wSfKkJ4z2mu5kgC8OD96hNUYtjZ1Q==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@18.2.14":
   version "18.2.14"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.14.tgz#fa7a6fecf1ce35ca94e74874f70c56ce88f7a127"
@@ -1091,6 +1098,11 @@ chokidar@^3.5.3:
     readdirp "~3.6.0"
   optionalDependencies:
     fsevents "~2.3.2"
+
+classnames@~2.3.1:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.2.tgz#351d813bf0137fcc6a76a16b88208d2560a0d924"
+  integrity sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==
 
 client-only@0.0.1:
   version "0.0.1"
@@ -2261,6 +2273,11 @@ lodash.merge@^4.6.2:
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
 
+lodash@~4.17.12:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
+
 loose-envify@^1.1.0, loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
@@ -2698,7 +2715,7 @@ prelude-ls@^1.2.1:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
 
-prop-types@^15.8.1:
+prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -2889,6 +2906,20 @@ react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+
+react-tag-autocomplete@^6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/react-tag-autocomplete/-/react-tag-autocomplete-6.3.0.tgz#ce064bbab77b4daf7706be1c08413e7d0335ff4d"
+  integrity sha512-MUBVUFh5eOqshUm5NM20qp7zXk8TzSiKO4GoktlFzBLIOLs356npaMKtL02bm0nFV2f1zInUrXn1fq6+i5YX0w==
+
+react-tag-input@^6.8.1:
+  version "6.8.1"
+  resolved "https://registry.yarnpkg.com/react-tag-input/-/react-tag-input-6.8.1.tgz#bbf6e4e0765c0565470cc48a44dc4757c75784b9"
+  integrity sha512-eD8SCFVMGbnDP0qnlpMnalw6POJVnkOh0M7FhuVyR3u/Mf+lgAuvl+GbrtGaFZcw3qz2sWo6j3jrrHUV2gO6Cg==
+  dependencies:
+    classnames "~2.3.1"
+    lodash "~4.17.12"
+    prop-types "^15.7.2"
 
 react@18.2.0:
   version "18.2.0"

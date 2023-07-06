@@ -14,6 +14,10 @@ export type NavLink = {
     url:string
 }
 
+export type Tag = {
+    id:number,
+    name:string
+}
 
 export type Folder = {
     id:number,
