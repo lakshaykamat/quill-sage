@@ -15,7 +15,7 @@ export const navbar_sidebar:NavLink[] = [
     name:"New Note",
     state:AppState.NEW_NOTE,
     icon:NewNote,
-    url:'/new-note'
+    url:'/note'
   },
   {
     id:3,
