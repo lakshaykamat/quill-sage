@@ -1,19 +1,20 @@
-import { Dispatch, SetStateAction, useState } from "react"
+"use client"
+import { useState } from "react"
 import Navbar from "./navbar-sidebar/Navbar"
 import Sidebar from "./navbar-sidebar/Sidebar"
+import { useUserContext } from "../context/user"
 
-
-type NavbarAndSidebarProps = {
-  setAppState: Dispatch<SetStateAction<string| null>>,
-}
-
-const NavBarAndSideBar = ({ setAppState }: NavbarAndSidebarProps) => {
+const NavBarAndSideBar = () => {
   const [isSidebarOpen, setSideBarOpen] = useState(false)
+  const { user } = useUserContext();
+  console.log(user)
+  
   return (
     <>
-      <Navbar setSideBarOpen={setSideBarOpen} />
-      <Sidebar isSidebarOpen={isSidebarOpen} setAppState={setAppState} />
+      <Navbar user={user} setSideBarOpen={setSideBarOpen} />
+      <Sidebar isSidebarOpen={isSidebarOpen} />
     </>
+    
   )
 }
 

@@ -2,7 +2,7 @@ import { EditorContent, BubbleMenu, Editor, useEditor } from '@tiptap/react'
 import { AiOutlineBold, AiOutlineClear, AiOutlineCode, AiOutlineItalic, AiOutlineRedo, AiOutlineStrikethrough, AiOutlineUndo } from 'react-icons/ai'
 
 
-function TipTap({ editor }: { editor: Editor | null }) {
+function TextEditor({ editor }: { editor: Editor | null }) {
     // const [isEditable, setIsEditable] = useState(true)
     // const [content,setContent] = useState<String| null>('');
     // const editor = useEditor({
@@ -72,4 +72,4 @@ function TipTap({ editor }: { editor: Editor | null }) {
         </div>
     )
 }
-export default TipTap
+export default TextEditor

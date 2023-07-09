@@ -1,11 +1,15 @@
 import { FaUserCircle, FaStickyNote } from "react-icons/fa"
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch, SetStateAction ,useState,useEffect} from "react"
+import { User } from "@/app/types"
+import { getRandomGreeting } from "@/app/lib/getRandomGreetings"
 
 type NavBarProps = {
-    setSideBarOpen: Dispatch<SetStateAction<boolean>>
+  user:User
+  setSideBarOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const Navbar = ({ setSideBarOpen }: NavBarProps) => {
+const Navbar = ({ setSideBarOpen,user }: NavBarProps) => {
+
     return (
       <>
         <nav className="fixed top-0 z-50 w-full border-b border-button bg-primary dark:bg-gray-800 dark:border-gray-700">
@@ -40,8 +44,11 @@ const Navbar = ({ setSideBarOpen }: NavBarProps) => {
                   Quill Sage
                 </span>
               </div>
-              <div>
-                <FaUserCircle className="w-6 h-6 text-gray-800" />
+              <div className="flex items-center gap-2">
+                {user && <span className="text-sm"><span className="font-semibold">{getRandomGreeting()}</span> {user.username}</span>}
+                {
+                  user ? <img className="w-6 h-6 rounded-full" src={user.avatar}/> : <FaUserCircle className="w-6 h-6 text-gray-800" />
+                }
               </div>
             </div>
           </div>

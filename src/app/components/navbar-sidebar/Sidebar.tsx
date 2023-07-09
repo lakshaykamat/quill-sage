@@ -1,13 +1,28 @@
-import { Dispatch, SetStateAction } from "react"
-import { navbar_sidebar } from './../../data/index';
 import Link from 'next/link'
+import { Collection, Feed, Settings } from "@/app/assets/SidebarIcons"
 
 type SideBarProps = {
     isSidebarOpen: boolean,
-    setAppState: Dispatch<SetStateAction<string | null>>
 }
 
-const Sidebar = ({ isSidebarOpen, setAppState }: SideBarProps) => {
+const Sidebar = ({ isSidebarOpen }: SideBarProps) => {
+  const navbar_sidebar = [
+    {
+      id:1,
+      url:'/',
+      icon: Feed
+    },
+    {
+      id:2,
+      url:'collections',    
+      icon:Collection
+    },
+    {
+      id:3,
+      url:"settings",
+      icon:Settings
+    }
+  ]
     return (
       <>
         <aside
@@ -19,9 +34,9 @@ const Sidebar = ({ isSidebarOpen, setAppState }: SideBarProps) => {
             <ul className="space-y-2 font-medium">
               {
                 navbar_sidebar.map((item)=>{
-                  return <Link className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" href={item.url} key={item.id} onClick={() => setAppState(item.state)}>
+                  return <Link className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" href={item.url} key={item.id}>
                     {item.icon}
-                    <span className="ml-3">{item.name}</span>
+                    <span className="ml-3">{item.url}</span>
                 </Link>
                 })
               }
