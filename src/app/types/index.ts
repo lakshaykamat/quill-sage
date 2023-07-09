@@ -19,17 +19,41 @@ export type Tag = {
     name:string
 }
 
+
 export type Folder = {
-    id:number,
-    name:string,
-    notes:Note[]
-}
+    _id: string
+    name: string
+    notes: Note[]
+    user_id: string
+    createdAt: string
+    updatedAt: string
+    __v: number
+  }
+  
 
 export type Note = {
-    id:number,
-    title:string,
-    description:string,
-    date:string,
-    likes:number,
-    author:string
-}
+    _id: string
+    user_id: string
+    folderId: string
+    title: string
+    content: string
+    author?:string
+    isPrivate: boolean
+    likes: number
+    tags: Array<string>
+    createdAt: string
+    updatedAt: string
+    __v: number
+  }
+
+export type User = {
+    _id: string
+    username: string
+    avatar: string
+    email: string
+    googleId: string
+    createdAt: string
+    updatedAt: string
+    __v: number
+  }
+  
