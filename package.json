@@ -1,5 +1,5 @@
 {
-  "name": "quill-sage",
+  "name": "snap-note",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -24,6 +24,7 @@
     "@types/react-dom": "18.2.6",
     "@types/react-tag-autocomplete": "^6.3.0",
     "autoprefixer": "10.4.14",
+    "axios": "^1.4.0",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.7",
     "next": "13.4.7",
