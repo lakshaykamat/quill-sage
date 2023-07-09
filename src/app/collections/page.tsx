@@ -1,62 +1,67 @@
 "use client"
 import { AiFillFolder, AiFillFolderAdd } from "react-icons/ai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FolderCard from "./components/Folder";
 import { Folder } from "../types";
-import { my_folders } from "../data";
+import { getAllFolders } from "../lib/getAllFolders";
+import { createFolder } from "../lib";
 
 const Collections = () => {
-  const [show, setShow] = useState(false);
-  const [newText, setNewText] = useState("");
-  const [folders, setFolders] = useState<Folder[]>(my_folders);
+  const [show, setShow] = useState(false); //State of Input Box for creating new folder
+  const [newText, setNewText] = useState(""); //state for input text for creting new folder
+  const [folders, setFolders] = useState<Folder[] | null>(null);
+  
+  useEffect(() => {
+    const fetch = async () => {
+      const res = await getAllFolders()
+      setFolders(res)
+    }
+    fetch()
+  }, [folders])
 
-  function createFolder(): void {
-    setShow(true);
-  }
-  function handle(e: React.FormEvent<HTMLFormElement>): void {
+  async function handle(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log("Submited:" + newText);
-    const newFolder = {
-      id: 6,
-      name: newText,
-      notes:[]
-    };
-    setFolders([...folders, newFolder ]);
+    if(!folders) throw new Error("Folder is null")
+    const response =  await createFolder(newText)
+    
+    if(response.response.data.error) return alert ("Folder name must be unique")
+    setFolders([...folders, response]);
     setNewText("");
     setShow(false);
   }
   return (
     <>
-    <h1 className="my-2 text-3xl font-bold">My Collections</h1>
-    <button
-      onClick={createFolder}
-      className="flex items-center gap-2 px-3 py-2 mt-2 mb-4 rounded-sm bg-button"
-    >
-      <AiFillFolderAdd className="w-6 h-6" />
-      Create New
-    </button>
+      <h1 className="my-2 text-3xl font-bold">My Collections</h1>
+      <button
+        onClick={()=>setShow(true)}
+        className="flex items-center gap-2 px-3 py-2 mt-2 mb-4 rounded-sm bg-button"
+      >
+        <AiFillFolderAdd className="w-6 h-6" />
+        Create New
+      </button>
 
-    <div className="flex flex-row flex-wrap items-center justify-start gap-10">
-      {show && (
-        <div className="flex flex-col items-center p-2 transition-all duration-150 ease-in-out rounded-lg delay-50 hover:bg-slate-200">
-          <AiFillFolder className="text-primary w-28 h-28" />
-          <form id="folder" name="details" onSubmit={handle}>
-            <input
-              autoFocus
-              placeholder="New Folder"
-              onBlur={()=>setShow(false)}
-              value={newText}
-              onChange={(e) => setNewText(e.target.value)}
-              type="text"
-              className="py-1 text-center focus:outline bg-light w-28"
-            />
-          </form>
-        </div>
-      )}
-      {folders.map((folder) => {
-        return <FolderCard key={folder.id} id={folder.id} name={folder.name} />;
-      })}
-    </div>
+
+      <div className="flex flex-row flex-wrap items-center justify-start gap-10">
+        {show && (
+          <div className="flex flex-col items-center p-2 transition-all duration-150 ease-in-out rounded-lg delay-50 hover:bg-slate-200">
+            <AiFillFolder className="text-primary w-28 h-28" />
+            <form id="folder" name="details" onSubmit={handle}>
+              <input
+                autoFocus
+                placeholder="New Folder"
+                onBlur={() => setShow(false)}
+                value={newText}
+                onChange={(e) => setNewText(e.target.value)}
+                type="text"
+                className="py-1 text-center focus:outline bg-light w-28"
+              />
+            </form>
+          </div>
+        )}
+        {!folders ? <h1>Wait...</h1> : folders.map((folder) => {
+          return <FolderCard key={folder._id} name={folder.name} />;
+        })}
+      </div>
     </>
   );
 };
