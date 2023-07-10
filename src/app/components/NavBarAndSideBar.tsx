@@ -11,7 +11,7 @@ const NavBarAndSideBar = () => {
   
   return (
     <>
-      <Navbar user={user} setSideBarOpen={setSideBarOpen} />
+      <Navbar userData={user} setSideBarOpen={setSideBarOpen} />
       <Sidebar isSidebarOpen={isSidebarOpen} />
     </>
     

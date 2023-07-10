@@ -3,7 +3,7 @@
 
 "use client"
 import { createContext, useContext,useState,useEffect, Context } from "react";
-import { getUser } from "../lib/getUser";
+import { getUser } from "../lib/";
 // Creating the user context
 
 

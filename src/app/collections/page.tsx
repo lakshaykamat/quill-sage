@@ -3,7 +3,7 @@ import { AiFillFolder, AiFillFolderAdd } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import FolderCard from "./components/Folder";
 import { Folder } from "../types";
-import { getAllFolders } from "../lib/getAllFolders";
+import { getAllFolders } from "../lib";
 import { createFolder } from "../lib";
 
 const Collections = () => {

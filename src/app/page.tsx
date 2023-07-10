@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import Card from "./components/Card"
 import { Note } from "./types"
 import { useRouter } from 'next/navigation'
-import { getAllNotes } from "./lib/getAllNotes"
+import { getAllNotes } from "./lib"
 
 const Feed = () => {
   // const notes = my_notes

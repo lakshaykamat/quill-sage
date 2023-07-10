@@ -2,7 +2,7 @@
 import { useUserContext } from "@/app/context/user";
 import { updateNote } from "@/app/lib";
 import { getHTML } from "@/app/lib/getHTML";
-import { getNote } from "@/app/lib/getNote";
+import { getNote } from "@/app/lib/";
 import MenuBar from "@/app/components/Menubar";
 import Tags from "@/app/components/Tags";
 import TipTap from "@/app/components/TipTap";

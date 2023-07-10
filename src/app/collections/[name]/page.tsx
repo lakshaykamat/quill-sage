@@ -4,7 +4,7 @@ import { Folder, Note } from "@/app/types";
 import { AiFillFileText } from 'react-icons/ai'
 import Link from 'next/link'
 import { removeEncodingSting } from "@/app/lib/removeEncodingString";
-import { getAllFolders } from "@/app/lib/getAllFolders";
+import { getAllFolders } from "@/app/lib/";
 import { createNote, getFolderNotes } from "@/app/lib";
 
 const Page = ({ params }: { params: { name: string } }) => {

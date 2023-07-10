@@ -2,14 +2,19 @@ import { FaUserCircle, FaStickyNote } from "react-icons/fa"
 import { Dispatch, SetStateAction ,useState,useEffect} from "react"
 import { User } from "@/app/types"
 import { getRandomGreeting } from "@/app/lib/getRandomGreetings"
+import Image from "next/image"
 
 type NavBarProps = {
-  user:User
+  userData:User
   setSideBarOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const Navbar = ({ setSideBarOpen,user }: NavBarProps) => {
-
+const Navbar = ({ setSideBarOpen,userData }: NavBarProps) => {
+//   const [userData,setUserData] = useState(null)
+//   useEffect(()=>{
+//     setUserData(user)
+//   },[])
+console.log(userData)
     return (
       <>
         <nav className="fixed top-0 z-50 w-full border-b border-button bg-primary dark:bg-gray-800 dark:border-gray-700">
@@ -45,9 +50,9 @@ const Navbar = ({ setSideBarOpen,user }: NavBarProps) => {
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                {user && <span className="text-sm"><span className="font-semibold">{getRandomGreeting()}</span> {user.username}</span>}
+                {userData && <span className="text-sm"><span className="font-semibold">{getRandomGreeting()}</span> {userData.username}</span>}
                 {
-                  user ? <img className="w-6 h-6 rounded-full" src={user.avatar}/> : <FaUserCircle className="w-6 h-6 text-gray-800" />
+                  userData ? <Image width={24} height={24} className="rounded-full" src={userData.avatar} alt="User avatar" /> : <FaUserCircle className="w-6 h-6 text-gray-800" />
                 }
               </div>
             </div>
