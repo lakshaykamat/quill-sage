@@ -1,6 +1,6 @@
 "use client"
 import { useUserContext } from "@/app/context/user";
-import { updateNote } from "@/app/lib";
+import { changeVisibilty, updateNote } from "@/app/lib";
 import { getHTML } from "@/app/lib/getHTML";
 import { getNote } from "@/app/lib/";
 import MenuBar from "@/app/components/Menubar";
@@ -12,12 +12,12 @@ import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useEffect, useState } from "react"
 import { BsLockFill, BsUnlockFill } from "react-icons/bs";
-import { MdEdit, MdSave } from 'react-icons/md'
+import { MdEdit, MdSave, MdVisibility,MdVisibilityOff} from 'react-icons/md'
 
 const Page = ({ params }: { params: { id: number; name: string } }) => {
     const { id, name } = params;
 
-    const [noteData, setNoteData] = useState<Note | null>();
+    const [noteData, setNoteData] = useState<Note | null>(null);
 
     useEffect(() => {
       const fetch = async () => {
@@ -40,8 +40,11 @@ const Page = ({ params }: { params: { id: number; name: string } }) => {
         <button className="px-3 py-1 mb-2 outline" onClick={showEditor}>
           <MdEdit className="inline w-6 h-6"/> Edit
         </button>
+        <main className="mx-auto prose">
         <h1>{noteData.title}</h1>
-        <p>{noteData.content}</p>
+        <hr/>
+        <p dangerouslySetInnerHTML={{__html:noteData.content}}></p>
+        </main>
       </>
       :
       <TextEditor 
@@ -51,7 +54,8 @@ const Page = ({ params }: { params: { id: number; name: string } }) => {
       }))} 
       content={noteData.content} 
       noteid={id.toString()} 
-      title={noteData.title}/>
+      title={noteData.title}
+      visibility={noteData.isPrivate}/>
   )
 }
 
@@ -60,12 +64,14 @@ type Props = {
   title: string | undefined,
   noteid:string
   tags:Tag[]
+  visibility:boolean
 }
 
 const TextEditor = (props:Props) => {
   const { user } = useUserContext();
   const [title, setTitle] = useState(props.title === undefined ? "": props.title);
   const [isEditable, setIsEditable] = useState(true);
+  const [isPrivate,setIsPrivate] = useState(props.visibility)
   
   const [tags, setTags] = useState<Tag[]>(props.tags);
 
@@ -99,29 +105,40 @@ const TextEditor = (props:Props) => {
   const save = ()=>{
     //Create Save function to update a note
     const content = getHTML(editor)
-    console.log(tags.map(item => item.name))
-    const req = {
+    let data = JSON.stringify({
       title,
       content,
       // @ts-ignore
-      author:user.username,
-      tags:tags.map(item => item.name)
-    }
-    const note = updateNote(req,props.noteid)
+      author: user.username,
+      tags: tags.map(item => item.name)
+  });
+  console.log(data)
+    const note = updateNote(data,props.noteid)
     if(note) alert("Updated" + note)
   }
   return (
     <main className="max-w-full">
-      <button className="mb-4 mr-4" onClick={() => setIsEditable(!isEditable)}>
+      <div className="flex items-center gap-3 mb-4">   
+      <button className="flex gap-1 px-2 py-1 rounded drop-shadow bg-button" onClick={() => setIsEditable(!isEditable)}>
+      {!isEditable ? "Lock":  "Unlock"}
         {!isEditable ? (
           <BsLockFill title="Lock" className="w-6 h-6 text-gray-500" />
         ) : (
           <BsUnlockFill title="Unlock" className="w-6 h-6" />
         )}
       </button>
-      <button title="Save" className="mr-4">
-        <MdSave onClick={save} className="w-6 h-6" />
+      <button onClick={save}  title="Save" className="flex gap-1 px-2 py-1 rounded drop-shadow bg-button">
+        Save
+        <MdSave className="w-6 h-6" />
       </button>
+      <button onClick={()=>{
+          changeVisibilty(props.noteid)
+          setIsPrivate((prev)=>!prev)
+        }} className="flex gap-1 px-2 py-1 rounded drop-shadow bg-button">
+          {isPrivate ? "Private":  "Public"}
+        {isPrivate ? <MdVisibilityOff title="Private" className="w-6 h-6"/>:<MdVisibility title="Public "className="w-6 h-6" />}
+      </button>
+      </div>
       {!isEditable ? (
         <h1
           className={`w-full mb-2 text-2xl font-bold outline-none sm:text-3xl md:text-4xl bg-inherit ${!title && "text-gray-400"
