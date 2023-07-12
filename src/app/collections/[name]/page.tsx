@@ -89,11 +89,11 @@ const Page = ({ params }: { params: { name: string } }) => {
       )}
       {
         !notes ? <h1>Loading...</h1> : notes.map((note)=>{
-          //const limitedText = note?.title.length > 15 ? `${note.title.slice(0, 15)}...` : note.title;
+          const limitedText = note?.title.length > 15 ? `${note.title.slice(0, 15)}...` : note.title;
           return (
             <Link href={`${name}/${note._id}`} key={note._id} title={note.title} className="flex flex-col items-center p-2 transition-all duration-150 ease-in-out rounded-lg delay-50 hover:bg-slate-200">
             <AiFillFileText className="w-24 h-24 text-primary" />
-            <span className="font-medium">{note.title}</span>
+            <span className="font-medium">{limitedText}</span>
           </Link>
           )
         })

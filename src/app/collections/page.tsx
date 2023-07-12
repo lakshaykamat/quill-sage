@@ -24,10 +24,10 @@ const Collections = () => {
     if(!folders) throw new Error("Folder is null")
     const response =  await createFolder(newText)
     
-    if(response.response.data.error) return alert ("Folder name must be unique")
-    setFolders([...folders, response]);
     setNewText("");
     setShow(false);
+    if(response?.response?.data?.error) return alert ("Folder name must be unique")
+    setFolders([...folders, response]);
   }
   return (
     <>
@@ -41,7 +41,7 @@ const Collections = () => {
       </button>
 
 
-      <div className="flex flex-row flex-wrap items-center justify-start gap-10">
+      <div className="flex flex-row flex-wrap items-center gap-5 md:gap-10">
         {show && (
           <div className="flex flex-col items-center p-2 transition-all duration-150 ease-in-out rounded-lg delay-50 hover:bg-slate-200">
             <AiFillFolder className="text-primary w-28 h-28" />

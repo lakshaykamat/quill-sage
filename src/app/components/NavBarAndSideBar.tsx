@@ -7,7 +7,6 @@ import { useUserContext } from "../context/user"
 const NavBarAndSideBar = () => {
   const [isSidebarOpen, setSideBarOpen] = useState(false)
   const { user } = useUserContext();
-  console.log(user)
   
   return (
     <>

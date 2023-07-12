@@ -1,11 +1,11 @@
 import axios from "axios";
 
-export const getUser = async() => {
+export const getUser = async () => {
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
         url: 'http://localhost:8080/auth/getuser',
-        withCredentials :true,
+        withCredentials: true,
         headers: {}
     };
 
@@ -19,13 +19,31 @@ export const getUser = async() => {
     }
 }
 
+export const fetchUser = async (id: string) => {
 
-export const getNote = async(id:string) => {
+    let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `http://localhost:8080/api/v1/user/${id}`,
+        withCredentials: true,
+        headers: {}
+    };
+    try {
+        const response = await axios.request(config);
+        return response.data
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+
+export const getNote = async (id: string) => {
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
         url: `http://localhost:8080/api/v1/notes/${id}`,
-        withCredentials :true,
+        withCredentials: true,
         headers: {}
     };
 
@@ -60,25 +78,25 @@ export const getAllFolders = async () => {
 }
 
 
-export const getAllNotes = async()=>{
+export const getAllNotes = async () => {
     let config = {
-      method: 'get',
-      maxBodyLength: Infinity,
-      url: 'http://localhost:8080/api/v1/notes/',
-      withCredentials :true,
-      headers: {}
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: 'http://localhost:8080/api/v1/notes/',
+        withCredentials: true,
+        headers: {}
     };
-    
-      try {
+
+    try {
         const response = await axios.request(config);
         return response.data
-      }
-      catch (error:any) {
+    }
+    catch (error: any) {
         console.log(error.response.data);
         return error.response.data
-        //throw new Error("Failed to Fetch All Notes")
-      }
-  }
+        throw new Error("Failed to Fetch All Notes")
+    }
+}
 
 
 export const createFolder = async (name: string) => {
@@ -139,14 +157,7 @@ export const createNote = async (req: { title: string, content: string, author: 
 
 }
 
-export const updateNote = async (req:{title:string,content:string,author:string,tags:Array<string>},id:string) => {
-
-    let data = JSON.stringify({
-        "title": req.title,
-        "content": req.content,
-        "author": req.author,
-        "tags": req.tags
-    });
+export const updateNote = async (data: string, id: string) => {
 
     let config = {
         method: 'put',
@@ -161,6 +172,27 @@ export const updateNote = async (req:{title:string,content:string,author:string,
 
     try {
         const response = await axios.request(config);
+        console.log(response.data);
+        return response.data
+    }
+    catch (error) {
+        console.log(error);
+    }
+
+}
+
+export const getFolderNotes = async (id: string) => {
+
+    let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `http://localhost:8080/api/v1/folder/all/notes/${id}`,
+        withCredentials: true,
+        headers: {}
+    };
+
+    try {
+        const response = await axios.request(config);
         console.log(JSON.stringify(response.data));
         return response.data
     }
@@ -170,23 +202,22 @@ export const updateNote = async (req:{title:string,content:string,author:string,
 
 }
 
-export const getFolderNotes = async(id:string)=>{
+export const changeVisibilty = async (id: string) => {
 
-let config = {
-  method: 'get',
-  maxBodyLength: Infinity,
-  url: `http://localhost:8080/api/v1/folder/all/notes/${id}`,
-  withCredentials: true,
-  headers: { }
-};
+    let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `http://localhost:8080/api/v1/notes/visibility/${id}`,
+        withCredentials: true,
+        headers: {}
+    };
 
-  try {
-    const response = await axios.request(config);
-    console.log(JSON.stringify(response.data));
-    return response.data
-  }
-  catch (error) {
-    console.log(error);
-  }
+    try {
+        const response = await axios.request(config);
+        return response.data
+    }
+    catch (error) {
+        console.log(error);
+    }
 
 }

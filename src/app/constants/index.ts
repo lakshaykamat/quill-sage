@@ -1,10 +1,3 @@
-export const AppState = {
-    FEED:"feed",
-    SETTINGS:"settings",
-    COLLECTIONS:"collections",
-    NEW_NOTE:"new-note"
-}
-
 export const EditorMenu ={
     BOLD:"bold",
     ITALIC:"italic",

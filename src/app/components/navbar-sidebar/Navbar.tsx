@@ -10,11 +10,7 @@ type NavBarProps = {
 }
 
 const Navbar = ({ setSideBarOpen,userData }: NavBarProps) => {
-//   const [userData,setUserData] = useState(null)
-//   useEffect(()=>{
-//     setUserData(user)
-//   },[])
-console.log(userData)
+  
     return (
       <>
         <nav className="fixed top-0 z-50 w-full border-b border-button bg-primary dark:bg-gray-800 dark:border-gray-700">
@@ -46,11 +42,12 @@ console.log(userData)
                 </button>
                 <FaStickyNote className="w-6 h-6 ml-12 text-gray-800" />
                 <span className="self-center ml-3 text-xl font-semibold text-gray-800 sm:text-2xl whitespace-nowrap dark:text-white">
-                  Quill Sage
+                  Snap Note
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                {userData && <span className="text-sm"><span className="font-semibold">{getRandomGreeting()}</span> {userData.username}</span>}
+                {userData && <span className="hidden text-sm md:block">
+                  <span className="font-semibold">{getRandomGreeting()}</span> {userData.username}</span>}
                 {
                   userData ? <Image width={24} height={24} className="rounded-full" src={userData.avatar} alt="User avatar" /> : <FaUserCircle className="w-6 h-6 text-gray-800" />
                 }

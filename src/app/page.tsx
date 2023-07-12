@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation'
 import { getAllNotes } from "./lib"
 
 const Feed = () => {
-  // const notes = my_notes
   const [notes,setNotes] = useState<Note[] | null>(null)
 
   const router = useRouter()
@@ -20,7 +19,6 @@ const Feed = () => {
       setNotes(res)
     }
     fetch()
-    console.log(notes)
   }, [])
    
 
@@ -37,6 +35,8 @@ const Feed = () => {
         notes.map((note) => {
           return <Card
             key={note._id}
+            note_id={note._id}
+            user_id={note.user_id}
             title={note.title}
             likes={note.likes}
             content={note.content}

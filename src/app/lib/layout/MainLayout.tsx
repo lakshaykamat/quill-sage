@@ -7,14 +7,13 @@ export const MainLayout = ({
     children: React.ReactNode
   }) => {
     return (
-        <Context>
+      <Context>
         <NavBarAndSideBar/>
         <div className="p-4 md:ml-64">
           <main className="px-1 py-2 sm:px-2 mt-14">
             {children}
           </main>
         </div>
-        //Chod yarr mat kar
     </Context>
     )
 }

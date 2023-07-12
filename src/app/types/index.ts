@@ -39,7 +39,7 @@ export type Note = {
     content: string
     author?:string
     isPrivate: boolean
-    likes: number
+    likes: Array<string>
     tags: Array<string>
     createdAt: string
     updatedAt: string
