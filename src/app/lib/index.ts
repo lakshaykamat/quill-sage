@@ -4,7 +4,7 @@ export const getUser = async () => {
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: 'http://localhost:8080/auth/getuser',
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/getuser`,
         withCredentials: true,
         headers: {}
     };
@@ -24,7 +24,7 @@ export const fetchUser = async (id: string) => {
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: `http://localhost:8080/api/v1/user/${id}`,
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/user/${id}`,
         withCredentials: true,
         headers: {}
     };
@@ -42,7 +42,7 @@ export const getNote = async (id: string) => {
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: `http://localhost:8080/api/v1/notes/${id}`,
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/notes/${id}`,
         withCredentials: true,
         headers: {}
     };
@@ -62,7 +62,7 @@ export const getAllFolders = async () => {
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: 'http://localhost:8080/api/v1/folder/',
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/folder/`,
         withCredentials: true,
         headers: {}
     };
@@ -82,7 +82,7 @@ export const getAllNotes = async () => {
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: 'http://localhost:8080/api/v1/notes/public',
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/notes/public`,
         withCredentials: true,
         headers: {}
     };
@@ -107,7 +107,7 @@ export const createFolder = async (name: string) => {
     let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'http://localhost:8080/api/v1/folder/',
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/folder/`,
         withCredentials: true,
         headers: {
             'Content-Type': 'application/json'
@@ -137,7 +137,7 @@ export const createNote = async (req: { title: string, content: string,tags: Arr
     let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'http://localhost:8080/api/v1/notes/',
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/notes/`,
         withCredentials: true,
         headers: {
             'Content-Type': 'application/json'
@@ -161,7 +161,7 @@ export const updateNote = async (data: string, id: string) => {
     let config = {
         method: 'put',
         maxBodyLength: Infinity,
-        url: `http://localhost:8080/api/v1/notes/${id}`,
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/notes/${id}`,
         withCredentials: true,
         headers: {
             'Content-Type': 'application/json'
@@ -185,7 +185,7 @@ export const getFolderNotes = async (id: string) => {
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: `http://localhost:8080/api/v1/folder/all/notes/${id}`,
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/folder/all/notes/${id}`,
         withCredentials: true,
         headers: {}
     };
@@ -205,7 +205,7 @@ export const changeVisibilty = async (id: string) => {
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: `http://localhost:8080/api/v1/notes/visibility/${id}`,
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/notes/visibility/${id}`,
         withCredentials: true,
         headers: {}
     };
@@ -228,7 +228,7 @@ export const renameFolder = async(id:string,name:string)=>{
     let config = {
       method: 'put',
       maxBodyLength: Infinity,
-      url: `http://localhost:8080/api/v1/folder/${id}`,
+      url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/folder/${id}`,
       headers: { 
         'Content-Type': 'application/json'
       },

@@ -14,7 +14,7 @@ const Feed = () => {
       const res = await getAllNotes() 
       if(res === "Unauthorized"){
         //TODO Create a error Page
-        return window.open('http://localhost:8080/auth/google')
+        return window.open(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/google`)
         return router.push('/error')
       }
       setNotes(res)
