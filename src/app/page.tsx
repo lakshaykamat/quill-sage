@@ -14,6 +14,7 @@ const Feed = () => {
       const res = await getAllNotes() 
       if(res === "Unauthorized"){
         //TODO Create a error Page
+        return window.open('http://localhost:8080/auth/google')
         return router.push('/error')
       }
       setNotes(res)
@@ -40,8 +41,7 @@ const Feed = () => {
             title={note.title}
             likes={note.likes}
             content={note.content}
-            date={note.createdAt}
-            author={note.author} />
+            date={note.createdAt} />
         })
       }
     </div>

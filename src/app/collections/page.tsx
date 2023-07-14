@@ -17,7 +17,7 @@ const Collections = () => {
       setFolders(res)
     }
     fetch()
-  }, [folders])
+  }, [])
 
   async function handle(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

@@ -82,7 +82,7 @@ export const getAllNotes = async () => {
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: 'http://localhost:8080/api/v1/notes/',
+        url: 'http://localhost:8080/api/v1/notes/public',
         withCredentials: true,
         headers: {}
     };
@@ -126,11 +126,10 @@ export const createFolder = async (name: string) => {
 
 }
 
-export const createNote = async (req: { title: string, content: string, author: string, tags: Array<string>, folderId: string }) => {
+export const createNote = async (req: { title: string, content: string,tags: Array<string>, folderId: string }) => {
     let data = JSON.stringify({
         "title": req.title,
         "content": req.content,
-        "author": req.author,
         "tags": req.tags,
         "folderId": req.folderId
     });
@@ -193,7 +192,6 @@ export const getFolderNotes = async (id: string) => {
 
     try {
         const response = await axios.request(config);
-        console.log(JSON.stringify(response.data));
         return response.data
     }
     catch (error) {
@@ -220,4 +218,28 @@ export const changeVisibilty = async (id: string) => {
         console.log(error);
     }
 
+}
+
+export const renameFolder = async(id:string,name:string)=>{
+    let data = JSON.stringify({
+      "name": name
+    });
+    
+    let config = {
+      method: 'put',
+      maxBodyLength: Infinity,
+      url: `http://localhost:8080/api/v1/folder/${id}`,
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true,
+      data : data
+    };
+    
+      try {
+        const response = await axios.request(config);
+      }
+      catch (error) {
+        console.log(error);
+      }    
 }

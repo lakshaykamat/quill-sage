@@ -12,11 +12,9 @@ type CardProps = {
     user_id:string
     content: string,
     date: string,
-    likes: Array<string>,
-    author?: string
-    //FIX Author not NULL is server
+    likes: Array<Object>,
 }
-const Card = ({ title, content, date, author, likes,user_id,note_id }: CardProps) => {
+const Card = ({ title, content, date, likes,user_id,note_id }: CardProps) => {
     
     const [user,setUser] = useState<User | null>(null)
 
@@ -44,7 +42,7 @@ const Card = ({ title, content, date, author, likes,user_id,note_id }: CardProps
                     <Image src={user.avatar} className="rounded-sm" alt="User avatar" width={24} height={24}/> :
                     <AiOutlineUser/>
                     }
-                    <span>{author ? author : "No"}</span> |
+                    <span>{user ? user.username : "User"}</span> |
                     <span>{getDate(new Date(date))}</span>
                 </div>
                 <div className="flex items-center gap-2">

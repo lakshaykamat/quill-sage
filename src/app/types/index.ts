@@ -23,7 +23,6 @@ export type Tag = {
 export type Folder = {
     _id: string
     name: string
-    notes: Note[]
     user_id: string
     createdAt: string
     updatedAt: string
@@ -37,15 +36,16 @@ export type Note = {
     folderId: string
     title: string
     content: string
-    author?:string
     isPrivate: boolean
-    likes: Array<string>
+    likes: Array<LikeObject>
     tags: Array<string>
     createdAt: string
     updatedAt: string
     __v: number
   }
-
+type LikeObject = {
+  id:string,
+}
 export type User = {
     _id: string
     username: string
