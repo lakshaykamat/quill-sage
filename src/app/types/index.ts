@@ -42,6 +42,8 @@ export type Note = {
     createdAt: string
     updatedAt: string
     __v: number
+    error?:boolean
+    message?:string
   }
 type LikeObject = {
   id:string,
