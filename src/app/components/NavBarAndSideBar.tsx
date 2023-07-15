@@ -1,16 +1,16 @@
 "use client"
-import { useState } from "react"
+import { useState,useContext } from "react"
 import Navbar from "./navbar-sidebar/Navbar"
 import Sidebar from "./navbar-sidebar/Sidebar"
-import { useUserContext } from "../context/user"
+import { UserContext } from "../context/user"
 
 const NavBarAndSideBar = () => {
   const [isSidebarOpen, setSideBarOpen] = useState(false)
-  const { user } = useUserContext();
+  const { fuser } = useContext(UserContext);
   
   return (
     <>
-      <Navbar userData={user} setSideBarOpen={setSideBarOpen} />
+      <Navbar userData={fuser} setSideBarOpen={setSideBarOpen} />
       <Sidebar isSidebarOpen={isSidebarOpen} />
     </>
     

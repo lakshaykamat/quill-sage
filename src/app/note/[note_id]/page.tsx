@@ -1,9 +1,10 @@
 "use client"
+import { UserContext } from '@/app/context/user';
 import { fetchUser, getNote, updateNote } from '@/app/lib'
 import { getDate } from '@/app/lib/getDate';
 import { Note, User } from '@/app/types';
 import Image from 'next/image';
-import { useEffect, useState } from 'react'
+import { useEffect, useState,useContext } from 'react'
 import { AiFillStar } from 'react-icons/ai';
 
 const NotePage = ({ params }: { params: { note_id: string } }) => {
@@ -12,7 +13,7 @@ const NotePage = ({ params }: { params: { note_id: string } }) => {
   //const [likes, setLikes] = useState<number | null>(0)
   const [user, setUser] = useState<User | null>(null)
 
-
+const {fuser} = useContext(UserContext)
   useEffect(() => {
     const fetch = async () => {
       try {
@@ -31,17 +32,17 @@ const NotePage = ({ params }: { params: { note_id: string } }) => {
 
   const giveLike = (note: Note) => {
     //If user already likes the note
-    if (note.likes.some(item => item.id === note.user_id)) {
+    if (note.likes.some(item => item.id === fuser._id)) {
       const existingLikes = note.likes
       let data = JSON.stringify({
-        likes: existingLikes.filter((item) => note.user_id != item.id),
+        likes: existingLikes.filter((item) => fuser._id != item.id),
       });
-      setNote({ ...note, likes: existingLikes.filter((item) => note.user_id != item.id) })
+      setNote({ ...note, likes: existingLikes.filter((item) => fuser._id != item.id) })
       return updateNote(data, note_id)
     }
 
     const existingLikes = note.likes
-    existingLikes.push({id:note.user_id})
+    existingLikes.push({id:fuser._id})
     let data = JSON.stringify({
       likes: existingLikes,
     });
@@ -65,7 +66,7 @@ const NotePage = ({ params }: { params: { note_id: string } }) => {
                 </div>
 
               <span>{getDate(new Date(note.createdAt))}</span>
-              <button onClick={() => giveLike(note)} className={`flex items-center gap-2 px-3 py-1 drop-shadow ${note.likes.some(item => item.id === note.user_id) ? "bg-red-400" : "bg-button"}`}>
+              <button onClick={() => giveLike(note)} className={`flex items-center gap-2 px-3 py-1 drop-shadow ${note.likes.some(item => item.id === fuser._id) ? "bg-red-400" : "bg-button"}`}>
                 <AiFillStar />
                 <span>{note.likes.length}</span>
               </button>

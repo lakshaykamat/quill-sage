@@ -1,5 +1,5 @@
 "use client"
-import { useUserContext } from "@/app/context/user";
+import { UserContext } from "@/app/context/user";
 import { changeVisibilty, updateNote } from "@/app/lib";
 import { getHTML } from "@/app/lib/getHTML";
 import { getNote } from "@/app/lib/";
@@ -10,7 +10,7 @@ import { Note, Tag } from "@/app/types";
 import Placeholder from "@tiptap/extension-placeholder";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { useEffect, useState } from "react"
+import { useEffect, useState ,useContext} from "react"
 import { BsLockFill, BsUnlockFill } from "react-icons/bs";
 import { MdEdit, MdSave, MdVisibility,MdVisibilityOff} from 'react-icons/md'
 
@@ -68,7 +68,7 @@ type Props = {
 }
 
 const TextEditor = (props:Props) => {
-  const { user } = useUserContext();
+  const { fuser } = useContext(UserContext);
   const [title, setTitle] = useState(props.title === undefined ? "": props.title);
   const [isEditable, setIsEditable] = useState(true);
   const [isPrivate,setIsPrivate] = useState(props.visibility)
@@ -109,7 +109,7 @@ const TextEditor = (props:Props) => {
       title,
       content,
       // @ts-ignore
-      author: user.username,
+      author: fuser.username,
       tags: tags.map(item => item.name)
   });
   console.log(data)

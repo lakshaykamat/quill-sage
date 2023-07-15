@@ -7,7 +7,7 @@ import { getAllNotes } from "./lib"
 
 const Feed = () => {
   const [notes,setNotes] = useState<Note[] | null>(null)
-
+console.log(process.env.NEXT_PUBLIC_SERVER_URL)
   const router = useRouter()
   useEffect(() => {
     const fetch = async () => {
