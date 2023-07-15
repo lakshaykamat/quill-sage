@@ -1,49 +1,50 @@
-'use client'
-import { useState } from "react";
-import Card from "@/components/Card";
-import NavBarAndSideBar from "@/components/NavBarAndSideBar";
-import { AppState } from '@/constants/app-state';
+"use client"
+import { useEffect, useState } from "react"
+import Card from "./components/Card"
+import { Note } from "./types"
+import { useRouter } from 'next/navigation'
+import { getAllNotes } from "./lib"
 
-export default function Home() {
-  const [appState, setAppState] = useState(AppState.FEED)
-  const notes = [
-    {
-      title: "Welcome",
-      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus amet ea quisquam voluptas cum doloribus facere dolores iste, inventore voluptatem.",
-      date: "12 July 2014",
-      likes: 23,
-      author: "Lakshay"
+const Feed = () => {
+  const [notes,setNotes] = useState<Note[] | null>(null)
+
+  const router = useRouter()
+  useEffect(() => {
+    const fetch = async () => {
+      const res = await getAllNotes() 
+      if(res === "Unauthorized"){
+        //TODO Create a error Page
+        return window.open(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/google`)
+        return router.push('/error')
+      }
+      setNotes(res)
     }
-  ]
-  let content;
-  if (appState === AppState.FEED) {
-    content = (
-      <>
-        <div className="flex flex-col items-center max-w-2xl gap-3 mx-auto">
-          <div className="flex justify-between w-full mb-2">
-            <h1 className="mb-2 text-3xl font-bold text-start">My Feed</h1>
-            <button>Sort By</button>
-          </div>
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-        </div>
-      </>
-    )
-  } else if (appState === AppState.SETTINGS) {
-    content = (<><h1>Settings</h1></>)
-  } else {
-    content = (<><h1>Other</h1></>)
-  }
+    fetch()
+  }, [])
+   
+
   return (
-    <>
-      <NavBarAndSideBar setAppState={setAppState} />
-      <div className="p-4 md:ml-64">
-        <div className="p-4 mt-14">
-          {content}
-        </div>
+    <div className="flex flex-col items-center max-w-2xl gap-3 mx-auto">
+      <div className="flex justify-between w-full mb-2">
+        <h1 className="mb-2 text-3xl font-bold text-start">My Feed</h1>
+        <select className="px-3 text-sm rounded-lg bg-button drop-shadow-sm outline-gray-500">
+          <option value="">Most Recent</option>
+          <option value="">Most Liked</option>
+        </select>
       </div>
-    </>
+      {!notes ? <h1>Wait...</h1> : 
+        notes.map((note) => {
+          return <Card
+            key={note._id}
+            note_id={note._id}
+            user_id={note.user_id}
+            title={note.title}
+            likes={note.likes}
+            content={note.content}
+            date={note.createdAt} />
+        })
+      }
+    </div>
   )
 }
+export default Feed
