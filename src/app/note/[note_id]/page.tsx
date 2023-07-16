@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { useEffect, useState, useContext } from 'react'
 import { AiFillStar } from 'react-icons/ai';
 import { notFound } from 'next/navigation';
-
+import Link from 'next/link';
 
 const NotePage = ({ params }: { params: { note_id: string } }) => {
   const { note_id } = params;
@@ -70,11 +70,11 @@ const NotePage = ({ params }: { params: { note_id: string } }) => {
         <main className='max-w-3xl mx-auto'>
           <h1 className='my-3 text-3xl font-bold'>{note.title}</h1>
           <div className='flex flex-col items-start gap-2 my-6 sm:flex-row md:items-center'>
-            <div className='flex flex-wrap gap-5'>
-              <div className='flex'>
+            <div className='flex flex-wrap items-center gap-5'>
+              <div className='flex items-center'>
                 {user &&
                   <Image width={30} height={30} className='rounded-md' src={user.avatar} alt="User" />}
-                <span className='ml-3'>{user && user.username}</span>
+                <Link href={`/profile/${user && user?._id}`} className='ml-3'>{user && user.username}</Link>
               </div>
 
               <span>{getDate(new Date(note.createdAt))}</span>
