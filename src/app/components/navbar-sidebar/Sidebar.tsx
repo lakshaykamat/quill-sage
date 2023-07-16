@@ -1,11 +1,13 @@
 import Link from 'next/link'
 import { Collection, Feed, Settings } from "@/app/assets/SidebarIcons"
+import { Dispatch, SetStateAction } from 'react'
 
 type SideBarProps = {
     isSidebarOpen: boolean,
+    setSideBarOpen:Dispatch<SetStateAction<boolean>>
 }
 
-const Sidebar = ({ isSidebarOpen }: SideBarProps) => {
+const Sidebar = ({ isSidebarOpen,setSideBarOpen }: SideBarProps) => {
   const navbar_sidebar = [
     {
       id:1,
@@ -37,7 +39,7 @@ const Sidebar = ({ isSidebarOpen }: SideBarProps) => {
             <ul className="space-y-2 font-medium">
               {
                 navbar_sidebar.map((item)=>{
-                  return <Link className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" href={item.url} key={item.id}>
+                  return <Link onClick={()=>setSideBarOpen(false)} className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700" href={item.url} key={item.id}>
                     {item.icon}
                     <span className="ml-3">{item.name}</span>
                 </Link>

@@ -2,16 +2,16 @@
 import { useState,useContext } from "react"
 import Navbar from "./navbar-sidebar/Navbar"
 import Sidebar from "./navbar-sidebar/Sidebar"
-import { UserContext } from "../context/user"
+import { UserContext, useUserContext } from "../context/user"
 
 const NavBarAndSideBar = () => {
   const [isSidebarOpen, setSideBarOpen] = useState(false)
-  const { fuser } = useContext(UserContext);
-  
+  const { fuser} = useUserContext();
+
   return (
     <>
       <Navbar userData={fuser} setSideBarOpen={setSideBarOpen} />
-      <Sidebar isSidebarOpen={isSidebarOpen} />
+      <Sidebar setSideBarOpen={setSideBarOpen} isSidebarOpen={isSidebarOpen} />
     </>
     
   )

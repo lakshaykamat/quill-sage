@@ -98,6 +98,66 @@ export const getAllNotes = async () => {
     }
 }
 
+export const getAllUserNotes = async () => {
+    let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/notes/private`,
+        withCredentials: true,
+        headers: {}
+    };
+
+    try {
+        const response = await axios.request(config);
+        return response.data
+    }
+    catch (error: any) {
+        console.log(error.response.data);
+        throw new Error("Failed to Fetch All User Notes")
+    }
+}
+
+
+export const getAllTags = async () => {
+    let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/notes/tags/all`,
+        withCredentials: true,
+        headers: {}
+    };
+
+    try {
+        const response = await axios.request(config);
+        return response.data
+    }
+    catch (error: any) {
+        console.log(error.response.data);
+        throw new Error("Failed to Fetch All Tags")
+    }
+}
+
+
+export const fetchUserNotesById = async (userid:string) => {
+    let config = {
+        method: 'get',
+        maxBodyLength: Infinity,
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/notes/user/${userid}`,
+        withCredentials: true,
+        headers: {}
+    };
+
+    try {
+        const response = await axios.request(config);
+        return response.data
+    }
+    catch (error: any) {
+        console.log(error.response.data);
+        return error.response.data
+        throw new Error("Failed to Fetch All Notes")
+    }
+}
+
 
 export const createFolder = async (name: string) => {
     let data = JSON.stringify({

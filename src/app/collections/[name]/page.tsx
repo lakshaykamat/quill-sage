@@ -39,7 +39,6 @@ const Page = ({ params }: { params: { name: string } }) => {
     }
     fetchFolders()
   }, [])
-console.log(collectionNotes)
   
   if (folderDetails === undefined) return notFound()
 
