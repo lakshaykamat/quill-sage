@@ -2,7 +2,7 @@
 
 
 "use client"
-import { createContext, useContext,useState,useEffect, Context } from "react";
+import { createContext, useContext,useState,useEffect } from "react";
 import { getUser } from "../lib/";
 import { useRouter } from 'next/navigation'
 // Creating the user context
@@ -22,7 +22,7 @@ export default function Context2({ children }) {
         setfUser(res)
         
       } catch (error) {
-        return router.push('/login')   
+           
       }
     }
     fetch()

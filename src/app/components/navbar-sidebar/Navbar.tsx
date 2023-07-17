@@ -1,5 +1,5 @@
 import { FaUserCircle, FaStickyNote } from "react-icons/fa"
-import { Dispatch, SetStateAction ,useState,useEffect} from "react"
+import { Dispatch, SetStateAction} from "react"
 import { User } from "@/app/types"
 import { getRandomGreeting } from "@/app/lib/getRandomGreetings"
 import Image from "next/image"
@@ -10,7 +10,7 @@ type NavBarProps = {
 }
 
 const Navbar = ({ setSideBarOpen,userData }: NavBarProps) => {
-  
+  console.log(userData)
     return (
       <>
         <nav className="fixed top-0 z-50 w-full border-b border-button bg-primary dark:bg-gray-800 dark:border-gray-700">
