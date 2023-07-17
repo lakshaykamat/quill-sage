@@ -11,11 +11,7 @@ const Feed = () => {
   const router = useRouter()
   useEffect(() => {
     const fetch = async () => {
-      const res = await getAllNotes() 
-      if(res === "Unauthorized"){
-        //TODO Create a error Page
-        return window.open(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/google`)
-      }
+      const res = await getAllNotes()
       setNotes(res)
     }
     fetch()
