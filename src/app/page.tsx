@@ -12,6 +12,7 @@ const Feed = () => {
   useEffect(() => {
     const fetch = async () => {
       const res = await getAllNotes()
+      if(res === "Unauthorized") return router.push('/login')
       setNotes(res)
     }
     fetch()

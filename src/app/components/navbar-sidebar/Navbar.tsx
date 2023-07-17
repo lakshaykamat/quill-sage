@@ -49,7 +49,7 @@ const Navbar = ({ setSideBarOpen,userData }: NavBarProps) => {
                 {userData && <span className="hidden text-sm md:block">
                   <span className="font-semibold">{getRandomGreeting()}</span> {userData.username}</span>}
                 {
-                  userData ? <Image width={24} height={24} className="rounded-full" src={userData.avatar} alt="User avatar" /> : <FaUserCircle className="w-6 h-6 text-gray-800" />
+                  userData ? <Image width={24} height={24} className="rounded-full" src={userData.avatar ? userData.avatar : "https://i.pinimg.com/564x/44/d7/c7/44d7c719174e131f302172452f4c89e0.jpg"} alt="User avatar" /> : <FaUserCircle className="w-6 h-6 text-gray-800" />
                 }
               </div>
             </div>
