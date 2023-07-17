@@ -9,7 +9,7 @@ const Login = () => {
         password: ''
     })
     const router = useRouter()
-    const log = async(e)=>{
+    const log = async(e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         try {
             console.log(loginData)
@@ -39,7 +39,7 @@ const Login = () => {
                     value={loginData.password}
                     onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}  placeholder="Enter the password" className="px-3 py-1 rounded bg-light" />
                 </div>
-                <button  type="submit" onClick={log} className="px-4 py-1 mt-3 bg-button">
+                <button  type="submit" onClick={(e)=>log} className="px-4 py-1 mt-3 bg-button">
                     Login
                 </button>
             </div>
