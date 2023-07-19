@@ -12,19 +12,19 @@ export const UserContext = createContext(null);
 // Making the function which will wrap the whole app using Context Provider
 export default function Context2({ children }) {
   
-  const [fuser,setfUser] = useState(null)
+  const [current_user,setCurrent_user] = useState(null)
   
   useEffect(() => {
     const fetch = async () => {
       const res = await getUser()
-      setfUser(res)
+      setCurrent_user(res)
     }
     fetch()
   }, [])
 
 
   return (
-    <UserContext.Provider value={{fuser}}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{current_user}}>{children}</UserContext.Provider>
   );
 }
 
