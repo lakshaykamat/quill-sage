@@ -12,9 +12,10 @@ type CardProps = {
     user_id:string
     content: string,
     date: string,
-    likes: Array<Object>,
+    likes: Array<{id:string}>,
+    tags:Array<string>
 }
-const Card = ({ title, content, date, likes,user_id,note_id }: CardProps) => {
+const Card = ({ title, content, date, likes,user_id,note_id ,tags}: CardProps) => {
     
     const [user,setUser] = useState<User | null>(null)
 
@@ -35,6 +36,13 @@ const Card = ({ title, content, date, likes,user_id,note_id }: CardProps) => {
                     {title}
                 </h5>
                 </Link>
+                <div className="flex flex-wrap gap-3 mb-3">
+                    {
+                        tags.map((tag,index)=>{
+                            return (<span key={index} className="px-2 py-1 text-sm rounded-md bg-very_light drop-shadow">{tag}</span>)
+                        })
+                    }
+                </div>
             <p dangerouslySetInnerHTML={{__html: description}} className="mb-3 font-normal text-gray-700 dark:text-gray-400"></p>
             <div className="flex justify-between">
                 <div className="flex items-center gap-3">
@@ -42,7 +50,7 @@ const Card = ({ title, content, date, likes,user_id,note_id }: CardProps) => {
                     <Image src={user.avatar} className="rounded-sm" alt="User avatar" width={24} height={24}/> :
                     <AiOutlineUser/>
                     }
-                    <span>{user ? user.username : "User"}</span> |
+                    <Link href={`/profile/${user_id}`}>{user ? user.username : "User"}</Link> |
                     <span>{getDate(new Date(date))}</span>
                 </div>
                 <div className="flex items-center gap-2">

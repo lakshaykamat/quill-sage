@@ -36,6 +36,7 @@ const Feed = () => {
             user_id={note.user_id}
             title={note.title}
             likes={note.likes}
+            tags={note.tags}
             content={note.content}
             date={note.createdAt} />
         })

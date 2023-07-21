@@ -14,7 +14,7 @@ const NotePage = ({ params }: { params: { note_id: string } }) => {
   const [note, setNote] = useState<Note | null>(null)
   const [user, setUser] = useState<User | null>(null)
 
-  const current_user:User = useUserContext()
+  const { current_user }= useUserContext()
   useEffect(() => {
     const fetch = async () => {
       //Fetching note with id on params object
@@ -38,20 +38,25 @@ const NotePage = ({ params }: { params: { note_id: string } }) => {
       let data = JSON.stringify({
         likes: existingLikes.filter((item) => current_user._id != item.id),
       });
+      
+      alert(data)
       setNote({ ...note, likes: existingLikes.filter((item) => current_user._id != item.id) })
+      //alert("Already Liked")
       return updateNote(data, note_id)
     } else {
       //if user not liked this note
       const existingLikes = note.likes
 
       //Pushing user id to likes array of current user
+      console.log(current_user._id)
       existingLikes.push({ id: current_user._id })
+      console.log(existingLikes)
       let data = JSON.stringify({
         likes: existingLikes,
       });
-      
+      console.log(data)
       //Changing state of note to reflect the like change on screen
-      setNote({ ...note, likes: existingLikes })
+      setNote({ ...note, likes:existingLikes })
       
       //Updating note on server
       return updateNote(data, note_id)

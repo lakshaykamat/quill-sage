@@ -138,7 +138,7 @@ export const getAllTags = async () => {
 }
 
 
-export const fetchUserNotesById = async (userid: string) => {
+export const fetchUserNotesById = async (userid:string) => {
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
