@@ -2,8 +2,9 @@
 
 
 "use client"
-import { createContext, useContext,useState,useEffect, Context } from "react";
+import { createContext, useContext,useState,useEffect } from "react";
 import { getUser } from "../lib/";
+import { useRouter } from 'next/navigation'
 // Creating the user context
 
 
@@ -12,19 +13,19 @@ export const UserContext = createContext(null);
 // Making the function which will wrap the whole app using Context Provider
 export default function Context2({ children }) {
   
-  const [fuser,setfUser] = useState(null)
+  const [current_user,setCurrent_user] = useState(null)
   
   useEffect(() => {
     const fetch = async () => {
       const res = await getUser()
-      setfUser(res)
+      setCurrent_user(res)
     }
     fetch()
   }, [])
 
 
   return (
-    <UserContext.Provider value={{fuser}}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{current_user}}>{children}</UserContext.Provider>
   );
 }
 

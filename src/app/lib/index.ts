@@ -186,7 +186,7 @@ export const createFolder = async (name: string) => {
 
 }
 
-export const createNote = async (req: { title: string, content: string,tags: Array<string>, folderId: string }) => {
+export const createNote = async (req: { title: string, content: string, tags: Array<string>, folderId: string }) => {
     let data = JSON.stringify({
         "title": req.title,
         "content": req.content,
@@ -280,26 +280,54 @@ export const changeVisibilty = async (id: string) => {
 
 }
 
-export const renameFolder = async(id:string,name:string)=>{
+export const renameFolder = async (id: string, name: string) => {
     let data = JSON.stringify({
-      "name": name
+        "name": name
     });
-    
+
     let config = {
-      method: 'put',
-      maxBodyLength: Infinity,
-      url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/folder/${id}`,
-      headers: { 
-        'Content-Type': 'application/json'
-      },
-      withCredentials: true,
-      data : data
+        method: 'put',
+        maxBodyLength: Infinity,
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/folder/${id}`,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        withCredentials: true,
+        data: data
     };
-    
-      try {
+
+    try {
         const response = await axios.request(config);
-      }
-      catch (error) {
+    }
+    catch (error) {
         console.log(error);
-      }    
+    }
+}
+
+export const loginUser = async (username:string,password:string) => {
+    const axios = require('axios');
+    let data = JSON.stringify({
+        "username": username,
+        "password": password
+    });
+
+    let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/login`,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        withCredentials: true,
+        data: data
+    };
+    try {
+        const response = await axios.request(config);
+        console.log(JSON.stringify(response.data));
+        return response.data
+    }
+    catch (error) {
+        console.log(error);
+    }
+
 }
