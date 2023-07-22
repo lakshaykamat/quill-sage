@@ -17,14 +17,14 @@ export default function RootLayout({
         <link rel="icon" href="/src/app/favicon.ico" sizes="any" />
         <meta aria-description=""></meta>
       </head>
-      <body className={`${inter.className} bg-very_light`}>
+      <body className={`${inter.className}`}>
         <Context>
           <NavBarAndSideBar />
-          <div className="p-4 md:ml-64">
-            <main className="px-1 py-2 sm:px-2 mt-14">
+          {/* <div className="p-4 md:ml-64"> */}
+            {/* <main className="px-1 py-2 sm:px-2 mt-14"> */}
               {children}
-            </main>
-          </div>
+            {/* </main> */}
+          {/* </div> */}
         </Context>
       </body>
     </html>

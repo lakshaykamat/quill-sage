@@ -5,6 +5,7 @@ import { User } from "../types";
 import { fetchUser } from "../lib";
 import Image from "next/image";
 import Link from "next/link";
+import { PLACEHOLER_LIKE_ICON } from "../assets/Icons";
 
 type CardProps = {
     note_id:string
@@ -27,36 +28,41 @@ const Card = ({ title, content, date, likes,user_id,note_id ,tags}: CardProps) =
       fetch()
     }, [])
     
-    const DESCRIPTION_LENGTH:number = 200;
+    const DESCRIPTION_LENGTH:number = 100;
     const description:string = content.length > DESCRIPTION_LENGTH ? `${content.slice(0, DESCRIPTION_LENGTH)}...` : content;
+    const TITLE_LENGTH:number = 20;
+    const short_title:string = title.length > TITLE_LENGTH ? `${title.slice(0, TITLE_LENGTH)}...` : title;
     return (
-        <div className="w-full p-6 rounded-lg outline bg-light drop-shadow-md dark:bg-gray-800 dark:border-gray-700 outline-1 outline-black">
+        <div className="flex flex-col max-w-sm p-6 rounded-lg bg-slate-600 drop-shadow-md">
+            <div className="flex justify-between">
                 <Link href={`/note/${note_id}`}>
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    {title}
-                </h5>
+                <h2 title={title} className="text-slate-100">
+                    {short_title}
+                </h2>
                 </Link>
+                {PLACEHOLER_LIKE_ICON}
+            </div>
                 <div className="flex flex-wrap gap-3 mb-3">
                     {
                         tags.map((tag,index)=>{
-                            return (<span key={index} className="px-2 py-1 text-sm rounded-md bg-very_light drop-shadow">{tag}</span>)
+                            return (<span key={index} className="px-2 py-1 text-sm rounded-md text-slate-100 bg-slate-500 drop-shadow">{tag}</span>)
                         })
                     }
                 </div>
-            <p dangerouslySetInnerHTML={{__html: description}} className="mb-3 font-normal text-gray-700 dark:text-gray-400"></p>
+            <p dangerouslySetInnerHTML={{__html: description}} className="mb-3 font-normal leading-relaxed text-slate-200 grow dark:text-gray-400"></p>
             <div className="flex justify-between">
                 <div className="flex items-center gap-3">
                     {user ? 
-                    <Image src={user.avatar} className="rounded-sm" alt="User avatar" width={24} height={24}/> :
+                    <Image src={user.avatar} className="rounded-sm" alt="User avatar" width={25} height={25}/> :
                     <AiOutlineUser/>
                     }
-                    <Link href={`/profile/${user_id}`}>{user ? user.username : "User"}</Link> |
-                    <span>{getDate(new Date(date))}</span>
+                    <Link href={`/profile/${user_id}`} className="text-sm text-slate-300">{user ? user.username : "User"}</Link>
+                    <span className="text-sm text-slate-300">{getDate(new Date(date))}</span>
                 </div>
-                <div className="flex items-center gap-2">
+                {/* <div className="flex items-center gap-2">
                     <AiFillStar />
                     <span>{likes.length}</span>
-                </div>
+                </div> */}
             </div>
         </div>
     )
