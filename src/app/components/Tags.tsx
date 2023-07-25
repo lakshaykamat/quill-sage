@@ -42,7 +42,7 @@ const Tags = ({tags,setTags,suggestions,setSuggestions}: Props) => {
         suggestions={suggestions}
         tagComponent={function TagComponent ({ tag, removeButtonText, onDelete }) {
             return (
-              <button type='button' className='px-3 py-2 mr-2 rounded-2xl bg-light' title={`${removeButtonText}: ${tag.name}`} onClick={onDelete}>
+              <button type='button' className='px-3 py-2 mb-2 mr-2 rounded-2xl bg-button' title={`${removeButtonText}: ${tag.name}`} onClick={onDelete}>
                 {tag.name}
               </button>
             )

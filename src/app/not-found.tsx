@@ -6,7 +6,7 @@ const NotFound = () => {
         <NotFoundSVG/>
         <p className="max-w-xs mt-4">The requested Page could not be found. Please check the URL or go back to the homepage.</p>
         <Link href="/">
-          <button className='px-3 py-2 font-semibold transition-all rounded-md text-slate-200 bg-slate-600 hover:bg-slate-700'>Home</button>
+          <button className='button-1'>Home</button>
         </Link>
     </div>
   )

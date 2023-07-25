@@ -4,15 +4,21 @@
 
 @layer base{
     h1{
-        @apply mb-3 font-extrabold leading-loose tracking-widest sm:text-3xl;
+        @apply mb-5 text-2xl font-extrabold leading-loose tracking-wide sm:text-4xl;
     }
     h2{
-        @apply mb-3 text-xl font-bold leading-loose tracking-wider sm:text-2xl;
+        @apply mb-3 text-xl font-bold leading-loose tracking-wide sm:text-2xl;
     }
     h3{
-        @apply mb-3 text-xl font-bold leading-loose tracking-wider sm:text-2xl;
+        @apply mb-3 text-xl font-bold leading-loose tracking-wide sm:text-2xl;
     }
     p{
         @apply leading-normal;
+    }
+}
+
+@layer components{
+    .button-1{
+        @apply  px-2 py-2 text-sm rounded-sm sm:px-3 focus:ring-2 ring-offset-2 ring-gray-700 bg-slate-300;
     }
 }

@@ -15,6 +15,6 @@ export const USER_ICON = <FaUserCircle className={styles} />
 export const SET_LIKE_ICON = ({ classes }: { classes: string }) => {
     return <AiFillHeart className={`${styles} ${classes}`} />
 }
-export const PLACEHOLER_LIKE_ICON = ({ classes }: { classes: string }) => {
+export const PLACEHOLER_LIKE_ICON = ({ classes }: { classes: string | null }) => {
     return <AiOutlineHeart className={`w-6 h-6 text-gray-200 ${classes}`} />
 }

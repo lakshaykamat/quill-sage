@@ -138,7 +138,7 @@ export const getAllTags = async () => {
 }
 
 
-export const fetchUserNotesById = async (userid:string) => {
+export const fetchUserNotesById = async (userid: string) => {
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
@@ -186,7 +186,7 @@ export const createFolder = async (name: string) => {
 
 }
 
-export const createNote = async (req: { title: string, content: string,tags: Array<string>, folderId: string }) => {
+export const createNote = async (req: { title: string, content: string, tags: Array<string>, folderId: string }) => {
     let data = JSON.stringify({
         "title": req.title,
         "content": req.content,
@@ -216,8 +216,10 @@ export const createNote = async (req: { title: string, content: string,tags: Arr
 
 }
 
-export const updateNote = async (data: string, id: string) => {
-
+export const updateNote = async (input: string, id: string) => {
+    let data = JSON.stringify({
+        "likes": []
+    });
     let config = {
         method: 'put',
         maxBodyLength: Infinity,
@@ -226,7 +228,7 @@ export const updateNote = async (data: string, id: string) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        data: data
+        data: input
     };
 
     try {
@@ -280,26 +282,46 @@ export const changeVisibilty = async (id: string) => {
 
 }
 
-export const renameFolder = async(id:string,name:string)=>{
+export const renameFolder = async (id: string, name: string) => {
     let data = JSON.stringify({
-      "name": name
+        "name": name
     });
-    
+
     let config = {
-      method: 'put',
-      maxBodyLength: Infinity,
-      url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/folder/${id}`,
-      headers: { 
-        'Content-Type': 'application/json'
-      },
-      withCredentials: true,
-      data : data
+        method: 'put',
+        maxBodyLength: Infinity,
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/folder/${id}`,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        withCredentials: true,
+        data: data
     };
-    
-      try {
+
+    try {
         const response = await axios.request(config);
-      }
-      catch (error) {
+    }
+    catch (error) {
         console.log(error);
-      }    
+    }
+}
+
+export const deleteFolder = async (id: string) => {
+    let config = {
+        method: 'delete',
+        maxBodyLength: Infinity,
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/folder/${id}`,
+        headers: {},
+        withCredentials: true,
+    };
+        try {
+            const response = await axios.request(config);
+            console.log(response.data)
+            return response.data
+        }
+        catch (error) {
+            console.log(error);
+            return error
+        }
+
 }

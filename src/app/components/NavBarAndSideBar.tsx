@@ -6,12 +6,12 @@ import Sidebar from "./navbar-sidebar/Sidebar"
 
 const NavBarAndSideBar = () => {
   const [isSidebarOpen, setSideBarOpen] = useState(false)
-  const { fuser} = useUserContext();
+  const { current_user} = useUserContext();
 
   return (
     <>
-      <Navbar userData={fuser} setSideBarOpen={setSideBarOpen} />
-      {/* <Sidebar setSideBarOpen={setSideBarOpen} isSidebarOpen={isSidebarOpen} /> */}
+      <Navbar userData={current_user} setSideBarOpen={setSideBarOpen} />
+      <Sidebar setSideBarOpen={setSideBarOpen} isSidebarOpen={isSidebarOpen} />
     </>
     
   )

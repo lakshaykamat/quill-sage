@@ -4,80 +4,96 @@ import { useEffect, useState } from "react";
 import FolderCard from "./components/Folder";
 import { Folder } from "../types";
 import { getAllFolders } from "../lib";
-import { createFolder } from "../lib";
 import { CreateNoteSVG } from "../assets/Illustrations";
+import api, { fetchAllFolders } from "../../../utils/api";
+import { AxiosResponse, all } from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 const Collections = () => {
-  const [show, setShow] = useState(false); //State of Input Box for creating new folder
-  const [newText, setNewText] = useState(""); //state for input text for creting new folder
-  const [folders, setFolders] = useState<Folder[] | null>(null);
-  
-  useEffect(() => {
-    const fetch = async () => {
-      const res = await getAllFolders()
-      setFolders(res)
-    }
-    fetch()
-  }, [])
+
+  const [InputBox, setInputBox] = useState({ status: false, text: "" }); //state for input text for creting ne  const [show, setShow] = useState(false); w folder
+  //const [folders, setFolders] = useState<Folder[] | null>(null);
+  const allFolders = useQuery({queryKey:["all_folders"],queryFn:()=>{
+    return fetchAllFolders()
+  }})
+  if(allFolders.isLoading) return <h1>Loading...</h1>
+  if(allFolders.isError) return <h1>Error: Something went wrong</h1>
+  // useEffect(() => {
+  //   const controller = new AbortController();
+  //   const fetch = async () => {
+  //     try{
+  //       const response = await api.get('/folder',{signal: controller.signal,withCredentials: true})
+  //       setFolders(response.data)
+  //     }catch(error){
+  //       console.log(error)
+  //     }
+  //   }
+  //   fetch()
+  //   return () => {
+  //     console.log(`Aborting`)
+  //     controller.abort()
+  //   }
+  // }, [])
 
   async function handle(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if(newText==="") return
-    if(!folders) throw new Error("Folder is null")
-    const response =  await createFolder(newText)
+    if (InputBox.text === "") return
+    if (!allFolders.data) throw new Error("Folder is null")
+    try {
+      await api.post('/api/v1/folder',{name:InputBox.text},{withCredentials:true})
+      allFolders.refetch()
+      setInputBox({ status: false, text: "" })
+      //setFolders([...folders, response.data]);
+    } catch (error) {
+      console.log(`Error ${error}`)
+    }
     
-    setNewText("");
-    setShow(false);
-    if(response?.response?.data?.error) return alert ("Folder name must be unique")
-    setFolders([...folders, response]);
   }
-  if(!folders){
+
     return (
-      <h1>Loading...</h1>
-    )
-  }else{
-    return (
-      <>
-        <h1 className="my-2 text-3xl font-bold">My Collections</h1>
-        <button
-          onClick={()=>setShow(true)}
-          className="flex items-center gap-2 px-3 py-2 mt-2 mb-4 rounded-sm focus:outline-double focus:outline-3 focus:outline-primary bg-button"
-        >
-          <AiFillFolderAdd className="w-6 h-6" />
-          Create New
-        </button>
-  
-  
-        <div className="flex flex-row flex-wrap items-center gap-5 md:gap-10">
-          {show && (
+      <div className="flex flex-col max-w-6xl gap-1 mx-5 mt-6 xl:mx-auto sm:mt-12">
+        <div>
+          <h3>My Collections</h3>
+          <button
+            onClick={() => setInputBox({ ...InputBox, status: true })}
+            className="flex items-center gap-2 button-1"
+          >
+            <AiFillFolderAdd className="sm:h-6 sm:w-6" />
+            New Collection
+          </button>
+        </div>
+
+
+        <div className="flex flex-row flex-wrap items-center gap-5 mt-3 md:gap-10">
+          {InputBox.status && (
             <div className="flex flex-col items-center p-2 transition-all duration-150 ease-in-out rounded-lg delay-50 hover:bg-slate-200">
-              <AiFillFolder className="text-primary w-28 h-28" />
+              <AiFillFolder className="w-12 h-12 text-slate-600 sm:w-24 sm:h-24" />
               <form id="folder" name="details" onSubmit={handle}>
                 <input
                   autoFocus
                   placeholder="New Folder"
-                  onBlur={() => setShow(false)}
-                  value={newText}
-                  onChange={(e) => setNewText(e.target.value)}
+                  onBlur={() => setInputBox({ status: false, text: "" })}
+                  value={InputBox.text}
+                  onChange={(e) => setInputBox({ ...InputBox, text: e.target.value })}
                   type="text"
-                  className="py-1 text-center focus:outline-primary bg-light w-28"
+                  className="py-1 text-center outline-none focus:border-b-2 bg-inherit w-28"
                 />
               </form>
             </div>
           )}
-          {folders.length === 0 ? (
-            <div className="flex flex-col items-center justify-center mx-auto mt-12">
-              <CreateNoteSVG/>
-            <p className="mt-6 font-semibold">Create a new Collection</p>
-            </div>
-          )
-           : folders.map((folder) => {
-            return <FolderCard key={folder._id} name={folder.name} />;
-          })}
+          {
+            allFolders.data.length === 0 ?
+              !InputBox.status &&
+              <div className="flex flex-col items-center justify-center mx-auto mt-12">
+                <CreateNoteSVG />
+                <p className="mt-6">Create a new Collection</p>
+              </div>
+              : allFolders.data.map((folder:Folder) => {
+                return <FolderCard key={folder._id} id={folder._id} name={folder.name} />;
+              })
+          }
         </div>
-      </>
+      </div>
     );
   }
-
-};
 export default Collections;

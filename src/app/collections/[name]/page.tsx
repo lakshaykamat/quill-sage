@@ -39,7 +39,7 @@ const Page = ({ params }: { params: { name: string } }) => {
     }
     fetchFolders()
   }, [])
-  
+
   if (folderDetails === undefined) return notFound()
 
   //Creating a new Note
@@ -66,45 +66,46 @@ const Page = ({ params }: { params: { name: string } }) => {
   } else {
     return (
       <>
-        <div className="flex items-center gap-1">
-          <h1 className="my-2 text-3xl font-bold">{removeEncodingSting(name)}</h1>
-        </div>
-
-        <button
-          onClick={() => setInputBox({ ...inputBox, status: true })}
-          className="flex items-center gap-2 px-3 py-2 mt-2 mb-4 rounded-sm bg-button"
-        >
-          <AiFillFileText className="w-6 h-6" />
-          Create New
-        </button>
-        <div className="flex flex-row flex-wrap items-center justify-start gap-10">
-          {inputBox.status && (
-            <div className="flex flex-col items-center p-2 transition-all duration-150 ease-in-out rounded-lg delay-50 hover:bg-slate-200">
-              <AiFillFileText className="text-primary w-28 h-28" />
-              <form id="files" name="details" onSubmit={handleNote}>
-                <input
-                  autoFocus
-                  placeholder="New Folder"
-                  onBlur={() => setInputBox({ ...inputBox, status: false })}
-                  value={inputBox.text}
-                  onChange={(e) => setInputBox({ ...inputBox, text: e.target.value })}
-                  type="text"
-                  className="py-1 text-center focus:outline bg-light w-28"
-                />
-              </form>
-            </div>
-          )}
-          {
-            collectionNotes.map((note) => {
-              const limitedText = note.title.length > 15 ? `${note.title.slice(0, 15)}...` : note.title;
-              return (
-                <Link href={`${name}/${note._id}`} key={note._id} title={note.title} className="flex flex-col items-center p-2 transition-all duration-150 ease-in-out rounded-lg delay-50 hover:bg-slate-200">
-                  <AiFillFileText className="w-24 h-24 text-primary" />
-                  <span className="font-medium">{limitedText}</span>
-                </Link>
-              )
-            })
-          }
+        <div className="flex-col max-w-6xl gap-1 mx-5 mt-6 lex xl:mx-auto sm:mt-12">
+          <div>
+            <h3 className="my-2 text-3xl font-bold">{removeEncodingSting(name)}</h3>
+            <button
+              onClick={() => setInputBox({ ...inputBox, status: true })}
+              className="flex items-center gap-2 button-1"
+            >
+              <AiFillFileText className="w-6 h-6" />
+              Create New
+            </button>
+          </div>
+          <div className="flex flex-row flex-wrap items-center gap-5 mt-3 md:gap-10">
+            {inputBox.status && (
+              <div className="flex flex-col items-center p-2 transition-all duration-150 ease-in-out rounded-lg delay-50 hover:bg-slate-200">
+                <AiFillFileText className="w-12 h-12 text-slate-600 sm:w-24 sm:h-24" />
+                <form id="files" name="details" onSubmit={handleNote}>
+                  <input
+                    autoFocus
+                    placeholder="New Folder"
+                    onBlur={() => setInputBox({ ...inputBox, status: false })}
+                    value={inputBox.text}
+                    onChange={(e) => setInputBox({ ...inputBox, text: e.target.value })}
+                    type="text"
+                    className="py-1 text-center outline-none focus:border-b-2 bg-inherit w-28"
+                  />
+                </form>
+              </div>
+            )}
+            {
+              collectionNotes.map((note) => {
+                const limitedText = note.title.length > 15 ? `${note.title.slice(0, 15)}...` : note.title;
+                return (
+                  <Link href={`${name}/${note._id}`} key={note._id} title={note.title} className="flex flex-col items-center p-2 transition-all duration-150 ease-in-out rounded-lg delay-50 hover:bg-slate-200">
+                    <AiFillFileText className="w-12 h-12 text-slate-600 sm:w-24 sm:h-24" />
+                    <span className="font-medium">{limitedText}</span>
+                  </Link>
+                )
+              })
+            }
+          </div>
         </div>
       </>
     )

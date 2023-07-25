@@ -18,7 +18,7 @@ const Navbar = ({ setSideBarOpen, userData }: NavBarProps) => {
           <div className="flex items-center justify-around">
             <div className="flex items-center justify-start">
               <button
-                onClick={() => setSideBarOpen((prev) => !prev)}
+                onClick={() => setSideBarOpen(true)}
                 data-drawer-target="logo-sidebar"
                 data-drawer-toggle="logo-sidebar"
                 aria-controls="logo-sidebar"
@@ -45,17 +45,17 @@ const Navbar = ({ setSideBarOpen, userData }: NavBarProps) => {
                 snap note
               </span>
               <div className="hidden gap-3 ml-6 md:flex it-ems-center">
-                <input type="text" placeholder="Search any note" className="px-3 py-1 transition-all bg-inherit rounded-2xl outline-1 outline outline-gray-700 focus:outline-0 focus:ring-2 ring-gray-700" />
+                <input type="text" placeholder="Search any note" className="px-3 py-1 transition-all bg-inherit rounded-2xl outline-1 outline outline-gray-700 focus:ring-2 ring-gray-700 ring-offset-2" />
               </div>
             </div>
 
             <div className="flex items-center gap-5">
               {/* {userData && <span className="hidden text-sm md:block">
                 <span className="font-semibold">{getRandomGreeting()}</span> {userData.username}</span>} */}
-              <Link href="/">
+              <Link href="/" className="hidden md:block">
                 {HOME_ICON}
               </Link>
-              <Link href="/collections">
+              <Link href="/collections" className="hidden md:block">
                 {Collection_ICON}
               </Link>
               <Link href={'/profile'}>
@@ -63,7 +63,7 @@ const Navbar = ({ setSideBarOpen, userData }: NavBarProps) => {
                   userData ? <Image width={30} height={30} className="rounded-full" src={userData.avatar} alt="User avatar" /> : USER_ICON
                 }
               </Link>
-              <Link href="/settings">
+              <Link href="/settings" className="hidden md:block">
                 {SETTINGS_ICON}
               </Link>
             </div>

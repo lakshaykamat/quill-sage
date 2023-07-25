@@ -29,6 +29,8 @@ const Page = ({ params }: { params: { id: string } }) => {
       return notFound()
     }
     return (
+      <div className='flex flex-col max-w-6xl gap-1 mx-5 mt-6 xl:mx-auto sm:mt-12'>
+
         <Editor
           tags={noteData.tags.map((name, index) => ({
             id: index,
@@ -39,6 +41,7 @@ const Page = ({ params }: { params: { id: string } }) => {
           noteid={id}
           title={noteData.title}
           visibility={noteData.isPrivate} />
+          </div>
     )
   }
 }

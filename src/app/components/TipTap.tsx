@@ -1,5 +1,5 @@
-import { EditorContent, BubbleMenu, Editor, useEditor } from '@tiptap/react'
-import { AiOutlineBold, AiOutlineClear, AiOutlineCode, AiOutlineItalic, AiOutlineRedo, AiOutlineStrikethrough, AiOutlineUndo } from 'react-icons/ai'
+import { EditorContent, BubbleMenu, Editor } from '@tiptap/react'
+import { AiOutlineBold, AiOutlineItalic, AiOutlineStrikethrough } from 'react-icons/ai'
 
 
 function TextEditor({ editor }: { editor: Editor | null }) {
@@ -17,7 +17,7 @@ function TextEditor({ editor }: { editor: Editor | null }) {
     // }, [isEditable, editor])
 
     return (
-        <div className='max-w-full prose lg:prose-lg'>
+        <div className='max-w-full prose '>
             {/* <div>
                 <input type="checkbox" checked={isEditable} onChange={() => setIsEditable(!isEditable)} />
                 Editable
