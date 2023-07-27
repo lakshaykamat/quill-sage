@@ -1,7 +1,7 @@
 "use client"
 import { createContext, useContext } from "react";
 import { useQuery } from "@tanstack/react-query"
-import API from "../../../utils/api";
+import API from "../utils/api.ts";
 import { useRouter } from "next/navigation";
 
 

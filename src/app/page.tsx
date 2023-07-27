@@ -1,15 +1,17 @@
-"use client"
-import Card from "./components/Card"
-import { Note } from "./types"
-import API, { fetchNotesOnFeed, fetchUser } from "../../utils/api"
-import { useQuery } from "@tanstack/react-query"
-
+"use client";
+import { fetchNotesOnFeed } from "./utils/api";
+import Card from "./components/Card";
+import { useQuery } from "@tanstack/react-query";
+import { Note } from "./types";
 
 const Feed = () => {
   // const [notes, setNotes] = useState<Note[] | null>(null)
-  const feedNotesQuery = useQuery({queryKey:["feedNotes"],queryFn:()=>{
-    return fetchNotesOnFeed()
-  }})
+  const feedNotesQuery = useQuery({
+    queryKey: ["feedNotes"],
+    queryFn: () => {
+      return fetchNotesOnFeed();
+    },
+  });
 
   // const router = useRouter()
   // useEffect(() => {
@@ -21,7 +23,7 @@ const Feed = () => {
   //     } catch (error:any) {
   //       console.log(error)
   //       if(error.response?.data === "Unauthorized"){
-  //        return router.push(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/google`) 
+  //        return router.push(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/google`)
   //       }
   //     }
   //   }
@@ -42,19 +44,24 @@ const Feed = () => {
   //   fetch()
   // }, [])
 
-  if(feedNotesQuery.isLoading) return <h1>Loading...</h1>
-  if(feedNotesQuery.isError) return <pre>Error: Refersh the page :(</pre>
-  const public_notes: JSX.Element[] | JSX.Element = feedNotesQuery.data.map((note:Note) => {
-    return <Card
-      key={note._id}
-      note_id={note._id}
-      user_id={note.user_id}
-      title={note.title}
-      likes={note.likes}
-      tags={note.tags}
-      content={note.content}
-      date={note.createdAt} />
-  })
+  if (feedNotesQuery.isLoading) return <h1>Loading...</h1>;
+  if (feedNotesQuery.isError) return <pre>Error: Refersh the page :(</pre>;
+  const public_notes: JSX.Element[] | JSX.Element = feedNotesQuery.data.map(
+    (note: Note) => {
+      return (
+        <Card
+          key={note._id}
+          note_id={note._id}
+          user_id={note.user_id}
+          title={note.title}
+          likes={note.likes}
+          tags={note.tags}
+          content={note.content}
+          date={note.createdAt}
+        />
+      );
+    }
+  );
   return (
     <div className="flex flex-col max-w-6xl gap-3 mx-auto my-12">
       {/* <div className="flex justify-between w-full mb-2">
@@ -68,6 +75,6 @@ const Feed = () => {
         {public_notes}
       </div>
     </div>
-  )
-}
-export default Feed
+  );
+};
+export default Feed;

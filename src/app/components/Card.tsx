@@ -2,9 +2,9 @@ import { getDate } from "../lib/getDate";
 
 import Image from "next/image";
 import Link from "next/link";
-import { PLACEHOLER_LIKE_ICON } from "../assets/Icons";
+import { PLACEHOLDER_LIKE_ICON } from "../assets/Icons";
 import { useQuery } from "@tanstack/react-query";
-import { fetchUser } from "../../../utils/api";
+import { fetchUser } from "../utils/api";
 
 type CardProps = {
     note_id: string
@@ -61,7 +61,7 @@ const Card = ({ title, content, date, likes, user_id, note_id, tags }: CardProps
                         {short_title}
                     </h2>
                 </Link>
-                <PLACEHOLER_LIKE_ICON classes={null} />
+                <PLACEHOLDER_LIKE_ICON classes={null} />
             </div>
             <div className="flex flex-wrap gap-3 mb-3 empty:hidden">{all_tags}</div>
             <p dangerouslySetInnerHTML={{ __html: removeAllTagsAndWrapInParagraph(description) }} className="mb-3 font-normal leading-relaxed text-slate-200 grow"></p>
