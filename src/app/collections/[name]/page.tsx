@@ -10,33 +10,35 @@ import { notFound } from "next/navigation";
 
 const Page = ({ params }: { params: { name: string } }) => {
   const { name } = params; //folder name
-  const [inputBox, setInputBox] = useState({
-    status: false,
-    text: ""
-  }); //State of Input Box for creating new folder
 
-  const [collectionNotes, setCollectionNotes] = useState<Note[] | null>(null); //state for folder notes
-  const [folderDetails, setFolderDetails] = useState<Folder | null | undefined>(null) //state for folder details
+  const [inputBox, setInputBox] = useState({ status: false, text: "" });
+  //State of Input Box for creating new folder
 
-  useEffect(() => {
-    const fetchFolders = async () => {
-      //Getting all the folders
-      const res: Folder[] = await getAllFolders()
+  const [collectionNotes, setCollectionNotes] = useState<Note[] | null>(null);
+  //state for folder notes
+  const [folderDetails, setFolderDetails] = useState<Folder | null | undefined>(null)
+  //state for folder details
 
-      //Finding current folder via name(unique)
-      const folder = res.find(folder => folder.name === removeEncodingSting(name));
-      if (folder) {
-        //setting folder details if found
-        setFolderDetails(folder)
+  const fetchFolders = async () => {
+    //Getting all the folders
+    const res: Folder[] = await getAllFolders()
 
-        //getting all notes of the folder
-        const res = await getFolderNotes(folder._id)
-        setCollectionNotes(res)
-      } else {
-        setFolderDetails(undefined)
-      }
+    //Finding current folder via name(unique)
+    const folder = res.find(folder => folder.name === removeEncodingSting(name));
+    if (folder) {
+      //setting folder details if found
+      setFolderDetails(folder)
 
+      //getting all notes of the folder
+      const response = await getFolderNotes(folder._id)
+      setCollectionNotes(response)
+    } else {
+      setFolderDetails(undefined)
     }
+  }
+
+  
+  useEffect(() => {
     fetchFolders()
   }, [])
 
@@ -100,7 +102,9 @@ const Page = ({ params }: { params: { name: string } }) => {
                 return (
                   <Link href={`${name}/${note._id}`} key={note._id} title={note.title} className="flex flex-col items-center p-2 transition-all duration-150 ease-in-out rounded-lg delay-50 hover:bg-slate-200">
                     <AiFillFileText className="w-12 h-12 text-slate-600 sm:w-24 sm:h-24" />
-                    <span className="font-medium">{limitedText}</span>
+                    <span className="font-medium">
+                      {limitedText}
+                    </span>
                   </Link>
                 )
               })

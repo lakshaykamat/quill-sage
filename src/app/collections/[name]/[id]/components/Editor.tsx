@@ -1,6 +1,6 @@
 import '../../../../styles/editor.css'
 import { useUserContext } from "@/app/context/user";
-import { changeVisibilty, updateNote } from "@/app/lib";
+import { changeVisibilty } from "@/app/lib";
 import { getHTML } from "@/app/lib/getHTML";
 import MenuBar from "@/app/components/Menubar";
 import Tags from "@/app/components/Tags";
@@ -12,7 +12,7 @@ import StarterKit from "@tiptap/starter-kit";
 import { BsLockFill, BsUnlockFill } from "react-icons/bs";
 import { useEffect, useState } from "react"
 import { MdSave, MdVisibility, MdVisibilityOff } from 'react-icons/md'
-import api from '../../../../../../utils/api';
+import { updateNote } from '../../../../../../utils/api';
 
 type EditorProps = {
   content: string | undefined,
@@ -53,16 +53,14 @@ const Editor = (props: EditorProps) => {
 
   const save = async () => {
     //Create Save function to update a note
-    const content = getHTML(editor)
-    const updatedNote = {
-      title,
-      content,
-      author: current_user.username,
-      tags: tags.map(item => item.name)
-    }
     try {
-      const response = await api.put(`/notes/${props.noteid}`,updatedNote,{withCredentials:true})
-      if(response.data.message == "Note Updated!") alert(`Updated`)
+      const response = await updateNote(props.noteid, {
+        title,
+        content: getHTML(editor),
+        author: current_user.username,
+        tags: tags.map(item => item.name)
+      })
+      if (response.message == "Note Updated!") alert(`Updated`)
     } catch (error) {
       console.log(`Error ${error}`)
     }
