@@ -216,10 +216,7 @@ export const createNote = async (req: { title: string, content: string, tags: Ar
 
 }
 
-export const updateNote = async (input: string, id: string) => {
-    let data = JSON.stringify({
-        "likes": []
-    });
+export const updateNote = async (id: string,input: {title:string,content:string,author:string,tags:string[]},) => {
     let config = {
         method: 'put',
         maxBodyLength: Infinity,

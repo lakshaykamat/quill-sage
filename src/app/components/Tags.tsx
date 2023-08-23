@@ -1,3 +1,4 @@
+import '../styles/tags.css'
 import ReactTags from 'react-tag-autocomplete'
 import {Dispatch,SetStateAction,useRef,useCallback} from 'react'
 import { Tag } from '../types'
@@ -7,7 +8,6 @@ type Props = {
     setTags:Dispatch<SetStateAction<Tag[]>>
     setSuggestions:Dispatch<SetStateAction<Tag[]>>
 }
-import '../styles/tags.css'
 
 const Tags = ({tags,setTags,suggestions,setSuggestions}: Props) => {
     const reactTags = useRef()

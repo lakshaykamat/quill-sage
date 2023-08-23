@@ -1,8 +1,8 @@
 "use client";
-import { fetchNotesOnFeed } from "./utils/api";
 import Card from "./components/Card";
 import { useQuery } from "@tanstack/react-query";
 import { Note } from "./types";
+import { fetchNotesOnFeed } from "./utils/api/notes";
 
 const Feed = () => {
   // const [notes, setNotes] = useState<Note[] | null>(null)

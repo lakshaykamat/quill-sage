@@ -3,25 +3,8 @@ import { AiOutlineBold, AiOutlineItalic, AiOutlineStrikethrough } from 'react-ic
 
 
 function TextEditor({ editor }: { editor: Editor | null }) {
-    // const [isEditable, setIsEditable] = useState(true)
-    // const [content,setContent] = useState<String| null>('');
-    // const editor = useEditor({
-    //     extensions: [StarterKit],
-    //     content: ``,
-    // })
-    // useEffect(() => {
-    //     //* If editable is true then show bubble menu
-    //     if (editor) {
-    //         editor.setEditable(isEditable)
-    //     }
-    // }, [isEditable, editor])
-
     return (
         <div className='max-w-full prose '>
-            {/* <div>
-                <input type="checkbox" checked={isEditable} onChange={() => setIsEditable(!isEditable)} />
-                Editable
-            </div> */}
             {editor && <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
                 <button
                     onClick={() => editor.chain().focus().toggleBold().run()}

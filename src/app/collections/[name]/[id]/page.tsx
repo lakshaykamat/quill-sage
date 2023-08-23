@@ -1,7 +1,8 @@
 "use client"
+import { fetchAllTags } from "@/app/utils/api/tags";
+import { fetchNote } from "@/app/utils/api/notes";
 import Editor from "./components/Editor";
 import { useQuery } from '@tanstack/react-query';
-import { fetchAllTags, fetchNote } from '../../../../../utils/api';
 
 const Page = ({ params }: { params: { id: string } }) => {
   const { id } = params;

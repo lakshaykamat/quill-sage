@@ -12,7 +12,7 @@ import StarterKit from "@tiptap/starter-kit";
 import { BsLockFill, BsUnlockFill } from "react-icons/bs";
 import { useEffect, useState } from "react"
 import { MdSave, MdVisibility, MdVisibilityOff } from 'react-icons/md'
-import { updateNote } from '../../../../../../utils/api';
+import { updateNote } from '@/app/utils/api/notes';
 
 type EditorProps = {
   content: string | undefined,

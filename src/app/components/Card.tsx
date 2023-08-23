@@ -2,9 +2,9 @@ import { getDate } from "../lib/getDate";
 
 import Image from "next/image";
 import Link from "next/link";
-import { PLACEHOLDER_LIKE_ICON } from "../assets/Icons";
+import { PLACEHOLDER_LIKE_ICON, SET_LIKE_ICON } from "../assets/Icons";
 import { useQuery } from "@tanstack/react-query";
-import { fetchUser } from "../utils/api";
+import { fetchUser } from "../utils/api/user";
 
 type CardProps = {
     note_id: string
@@ -16,19 +16,11 @@ type CardProps = {
     tags: Array<string>
 }
 const Card = ({ title, content, date, likes, user_id, note_id, tags }: CardProps) => {
-    // const [user, setUser] = useState<User | null>(null)
-    // useEffect(() => {
-    //     const fetch = async () => {
-    //         const res = await fetchUser(user_id)
-    //         setUser(res)
-    //     }
-    //     fetch()
-    // }, [])
-
     const user = useQuery({ queryKey: ["user", user_id], queryFn: () => fetchUser(user_id) })
 
     const DESCRIPTION_LENGTH: number = 50;
     const description: string = content.length > DESCRIPTION_LENGTH ? `${content.slice(0, DESCRIPTION_LENGTH)}...` : content;
+
     const TITLE_LENGTH: number = 15;
     const short_title: string = title.length > TITLE_LENGTH ? `${title.slice(0, TITLE_LENGTH)}...` : title;
 
@@ -51,20 +43,20 @@ const Card = ({ title, content, date, likes, user_id, note_id, tags }: CardProps
     }
 
     const all_tags: JSX.Element[] = tags.map((tag, index) => {
-        return (<span key={index} className="px-2 py-1 text-sm rounded-md text-slate-100 bg-slate-500 drop-shadow">{tag}</span>)
+        return (<span key={index} className="px-2 py-1 text-xs rounded-md text-slate-100 bg-slate-500 drop-shadow">{tag}</span>)
     })
     return (
         <div className="flex flex-col p-6 rounded bg-slate-600 drop-shadow-md">
             <div className="flex justify-between">
                 <Link href={`/note/${note_id}`}>
-                    <h2 title={title} className="text-slate-100">
+                    <h4 title={title} className="text-slate-100">
                         {short_title}
-                    </h2>
+                    </h4>
                 </Link>
                 <PLACEHOLDER_LIKE_ICON classes={null} />
             </div>
             <div className="flex flex-wrap gap-3 mb-3 empty:hidden">{all_tags}</div>
-            <p dangerouslySetInnerHTML={{ __html: removeAllTagsAndWrapInParagraph(description) }} className="mb-3 font-normal leading-relaxed text-slate-200 grow"></p>
+            <p dangerouslySetInnerHTML={{ __html: removeAllTagsAndWrapInParagraph(description) }} className=" text-slate-200 grow"></p>
             <div className="flex justify-between">
                 <div className="flex items-center gap-3">
                     {user.data &&
@@ -79,4 +71,5 @@ const Card = ({ title, content, date, likes, user_id, note_id, tags }: CardProps
         </div>
     )
 }
+
 export default Card

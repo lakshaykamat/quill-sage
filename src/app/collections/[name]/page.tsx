@@ -2,11 +2,11 @@
 import { useState, useEffect } from "react";
 import { Folder, Note } from "@/app/types";
 import { AiFillFileText } from 'react-icons/ai'
-import Link from 'next/link'
 import { removeEncodingSting } from "@/app/lib/removeEncodingString";
 import { getAllFolders } from "@/app/lib/";
 import { createNote, getFolderNotes } from "@/app/lib";
 import { notFound } from "next/navigation";
+import File from "../components/File";
 
 const Page = ({ params }: { params: { name: string } }) => {
   const { name } = params; //folder name
@@ -70,7 +70,7 @@ const Page = ({ params }: { params: { name: string } }) => {
       <>
         <div className="flex-col max-w-6xl gap-1 mx-5 mt-6 lex xl:mx-auto sm:mt-12">
           <div>
-            <h3 className="my-2 text-3xl font-bold">{removeEncodingSting(name)}</h3>
+            <h2>{removeEncodingSting(name)}</h2>
             <button
               onClick={() => setInputBox({ ...inputBox, status: true })}
               className="flex items-center gap-2 button-1"
@@ -97,17 +97,7 @@ const Page = ({ params }: { params: { name: string } }) => {
               </div>
             )}
             {
-              collectionNotes.map((note) => {
-                const limitedText = note.title.length > 15 ? `${note.title.slice(0, 15)}...` : note.title;
-                return (
-                  <Link href={`${name}/${note._id}`} key={note._id} title={note.title} className="flex flex-col items-center p-2 transition-all duration-150 ease-in-out rounded-lg delay-50 hover:bg-slate-200">
-                    <AiFillFileText className="w-12 h-12 text-slate-600 sm:w-24 sm:h-24" />
-                    <span className="font-medium">
-                      {limitedText}
-                    </span>
-                  </Link>
-                )
-              })
+              collectionNotes.map((note) => <File key={note._id} name={name} noteTitle={note.title} noteid={note._id}/>)
             }
           </div>
         </div>

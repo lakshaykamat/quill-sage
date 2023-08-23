@@ -5,7 +5,8 @@ import { Note, User } from "@/app/types";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PLACEHOLDER_LIKE_ICON, SET_LIKE_ICON } from "@/app/assets/Icons";
-import { fetchNote, fetchUser, updateNote } from "../../utils/api";
+import { fetchUser } from "../../utils/api/user";
+import { fetchNote, updateNote } from "../../utils/api/notes";
 import { useQuery } from "@tanstack/react-query";
 
 const NotePage = ({ params }: { params: { note_id: string } }) => {
@@ -60,6 +61,7 @@ const NotePage = ({ params }: { params: { note_id: string } }) => {
             ) : user.isError ? (
               <p>Error</p>
             ) : (
+              user.data &&
               <>
                 <Image
                   width={24}
