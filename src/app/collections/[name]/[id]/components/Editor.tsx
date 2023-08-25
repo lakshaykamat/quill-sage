@@ -1,16 +1,18 @@
+import '../../../../styles/editor.css'
 import { useUserContext } from "@/app/context/user";
-import { changeVisibilty, updateNote } from "@/app/lib";
+import { changeVisibilty } from "@/app/lib";
 import { getHTML } from "@/app/lib/getHTML";
 import MenuBar from "@/app/components/Menubar";
 import Tags from "@/app/components/Tags";
 import TipTap from "@/app/components/TipTap";
-import { Tag } from "@/app/types";
+import { Tag, User } from "@/app/types";
 import Placeholder from "@tiptap/extension-placeholder";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { BsLockFill, BsUnlockFill } from "react-icons/bs";
 import { useEffect, useState } from "react"
 import { MdSave, MdVisibility, MdVisibilityOff } from 'react-icons/md'
+import { updateNote } from '@/app/utils/api/notes';
 
 type EditorProps = {
   content: string | undefined,
@@ -22,7 +24,7 @@ type EditorProps = {
 }
 
 const Editor = (props: EditorProps) => {
-  const current_user = useUserContext()
+  const { current_user }: { current_user: User } = useUserContext()
   const [title, setTitle] = useState(props.title === undefined ? "" : props.title);
   const [isEditable, setIsEditable] = useState(true);
   const [isPrivate, setIsPrivate] = useState(props.visibility)
@@ -49,18 +51,19 @@ const Editor = (props: EditorProps) => {
     }
   }, [isEditable, editor]);
 
-  const save = () => {
+  const save = async () => {
     //Create Save function to update a note
-    const content = getHTML(editor)
-    let data = JSON.stringify({
-      title,
-      content,
-      // @ts-ignore
-      author: current_user.username,
-      tags: tags.map(item => item.name)
-    });
-    const note = updateNote(data, props.noteid)
-    if (note) alert("Updated\n\n" + JSON.stringify(note))
+    try {
+      const response = await updateNote(props.noteid, {
+        title,
+        content: getHTML(editor),
+        author: current_user.username,
+        tags: tags.map(item => item.name)
+      })
+      if (response.message == "Note Updated!") alert(`Updated`)
+    } catch (error) {
+      console.log(`Error ${error}`)
+    }
   }
   return (
     <main className="max-w-full">
@@ -75,11 +78,11 @@ const Editor = (props: EditorProps) => {
         </button>
         {
           isEditable && <button onClick={save} title="Save" className="flex gap-1 px-3 py-2 rounded drop-shadow bg-button">
-          Save
-          <MdSave className="w-6 h-6" />
-        </button>
+            Save
+            <MdSave className="w-6 h-6" />
+          </button>
         }
-        
+
         <button onClick={() => {
           changeVisibilty(props.noteid)
           setIsPrivate((prev) => !prev)

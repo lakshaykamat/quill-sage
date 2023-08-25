@@ -1,10 +1,11 @@
-import { FaUserCircle, FaStickyNote } from "react-icons/fa"
-import { Dispatch, SetStateAction, } from "react"
+"use client"
+import { Dispatch, SetStateAction, useState, } from "react"
 import { User } from "@/app/types"
-import { getRandomGreeting } from "@/app/lib/getRandomGreetings"
 import Image from "next/image"
 import Link from "next/link"
-import { Settings } from "@/app/assets/SidebarIcons"
+import { useRouter } from "next/navigation"
+import { Collection_ICON, HOME_ICON, NOTE_ICON, SETTINGS_ICON, USER_ICON } from "@/app/assets/Icons"
+import { AiOutlineSearch } from "react-icons/ai"
 
 type NavBarProps = {
   userData: User
@@ -12,15 +13,21 @@ type NavBarProps = {
 }
 
 const Navbar = ({ setSideBarOpen, userData }: NavBarProps) => {
+  const router = useRouter()
+  const [searchText,setSearchText] = useState('')
+
+  const searchNote = ()=>{
+    router.push(`/search/${searchText}`)
+  }
 
   return (
     <>
-      <nav className="fixed top-0 z-50 w-full border-b border-button bg-primary dark:bg-gray-800 dark:border-gray-700">
+      <nav className="w-full mb-5 border-b border-gray-500">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-around">
             <div className="flex items-center justify-start">
               <button
-                onClick={() => setSideBarOpen((prev) => !prev)}
+                onClick={() => setSideBarOpen(true)}
                 data-drawer-target="logo-sidebar"
                 data-drawer-toggle="logo-sidebar"
                 aria-controls="logo-sidebar"
@@ -42,24 +49,34 @@ const Navbar = ({ setSideBarOpen, userData }: NavBarProps) => {
                   />
                 </svg>
               </button>
-              <FaStickyNote className="w-6 h-6 ml-12 text-gray-800" />
-              <span className="self-center ml-3 text-xl font-semibold text-gray-800 sm:text-2xl whitespace-nowrap dark:text-white">
-                Snap Note
+              {NOTE_ICON}
+              <span className="self-center ml-3 text-xl font-semibold capitalize text-slate-800 sm:text-2xl whitespace-nowrap">
+                snap note
               </span>
               <div className="hidden gap-3 ml-6 md:flex it-ems-center">
-              <input type="text" placeholder="Search any note" className="px-3 py-1 transition-all bg-very_light rounded-2xl focus:outline-primary"/>
+                <input value={searchText} onChange={(e)=>setSearchText(e.target.value)} type="text" placeholder="Search any note" className="px-3 py-1 transition-all bg-inherit rounded-2xl outline-1 outline outline-gray-700 focus:ring-2 ring-gray-700 ring-offset-2" />
+                <button className="px-2 py-1 rounded bg-slate-500" onClick={searchNote}>
+                  <AiOutlineSearch className="w-6 h-6 text-white"/></button>
+              </div>
             </div>
-            </div>
-            
-            <div className="flex items-center gap-2">
-              {userData && <span className="hidden text-sm md:block">
-                <span className="font-semibold">{getRandomGreeting()}</span> {userData.username}</span>}
+
+            <div className="flex items-center gap-5">
+              {/* {userData && <span className="hidden text-sm md:block">
+                <span className="font-semibold">{getRandomGreeting()}</span> {userData.username}</span>} */}
+              <Link href="/" className="hidden md:block">
+                {HOME_ICON}
+              </Link>
+              <Link href="/collections" className="hidden md:block">
+                {Collection_ICON}
+              </Link>
               <Link href={'/profile'}>
                 {
-                  userData ? <Image width={24} height={24} className="rounded-full" src={userData.avatar ? userData.avatar : "https://i.pinimg.com/564x/44/d7/c7/44d7c719174e131f302172452f4c89e0.jpg"} alt="User avatar" /> : <FaUserCircle className="w-6 h-6 text-gray-800" />
+                  userData ? <Image width={30} height={30} className="rounded-full" src={userData.avatar} alt="User avatar" /> : USER_ICON
                 }
               </Link>
-              {Settings}
+              <Link href="/settings" className="hidden md:block">
+                {SETTINGS_ICON}
+              </Link>
             </div>
           </div>
         </div>

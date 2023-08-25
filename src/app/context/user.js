@@ -1,36 +1,31 @@
-// @ts-ignore-enable
-
-
 "use client"
-import { createContext, useContext,useState,useEffect } from "react";
-import { getUser } from "../lib/";
-import { useRouter } from 'next/navigation'
-// Creating the user context
+import { createContext, useContext } from "react";
+import { useQuery } from "@tanstack/react-query"
+import API from "../utils/api";
+import { useRouter } from "next/navigation";
 
 
 export const UserContext = createContext(null);
 
 // Making the function which will wrap the whole app using Context Provider
-export default function Context2({ children }) {
-  
-  const [current_user,setCurrent_user] = useState(null)
-  
-  useEffect(() => {
-    const fetch = async () => {
-      const res = await getUser()
-      setCurrent_user(res)
+export default function Context ({ children }) {
+  const router = useRouter()
+  const userQuery = useQuery({
+    queryKey: ["current_user"], queryFn: async () => {
+      const response = await API.get('/auth/getuser', { withCredentials: true })
+      return response.data
     }
-    fetch()
-  }, [])
+  })
+  if (userQuery.isError) router.push(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/google`)
 
-
+  const current_user = userQuery.data
   return (
-    <UserContext.Provider value={{current_user}}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ current_user }}>{children}</UserContext.Provider>
   );
 }
 
 // Make useUserContext Hook to easily use our context throughout the application
-export function useUserContext(){
+export function useUserContext () {
   const context = useContext(UserContext);
   if (!context) {
     throw new Error("useUserContext must be used within a UserContextProvider");

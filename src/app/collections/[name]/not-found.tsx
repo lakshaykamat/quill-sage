@@ -6,7 +6,7 @@ const NotFound = () => {
         <h1 className="mb-4 text-3xl font-bold">Not Found</h1>
         <p className="mb-4">The requested Note could not be found. Please check the URL or go back to the homepage.</p>
         <Link href="/">
-          <button className='px-3 py-2 font-semibold transition-all rounded-md bg-button hover:bg-primary'>Home</button>
+          <button className='button-1'>Home</button>
         </Link>
       </div>
     </div>

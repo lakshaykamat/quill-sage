@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base{
+    h1{
+        @apply mb-4 text-4xl font-bold leading-tight tracking-wide md:text-5xl;
+    }
+    h2{
+        @apply mb-3 text-3xl font-semibold leading-normal tracking-normal md:text-4xl;
+    }
+    h3{
+        @apply mb-2 text-2xl font-semibold leading-snug tracking-tighter md:text-3xl;
+    }
+    h4{
+        @apply mb-2 text-xl font-semibold leading-relaxed tracking-wider md:text-2xl;
+    }
+    h5{
+        @apply mb-1 text-lg font-semibold leading-loose tracking-normal md:text-xl;
+    }
+    h6{
+        @apply mb-1 text-base font-semibold leading-normal tracking-normal md:text-lg;
+    }
+    p{
+        @apply mb-4 text-base leading-relaxed md:text-lg;
+    }
+}
+
+@layer components{
+    .button-1{
+        @apply  px-2 py-2 text-sm rounded-sm sm:px-3 focus:ring-2 ring-offset-2 ring-gray-700 bg-slate-300;
+    }
+}

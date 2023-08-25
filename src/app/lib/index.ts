@@ -138,7 +138,7 @@ export const getAllTags = async () => {
 }
 
 
-export const fetchUserNotesById = async (userid:string) => {
+export const fetchUserNotesById = async (userid: string) => {
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
@@ -216,8 +216,7 @@ export const createNote = async (req: { title: string, content: string, tags: Ar
 
 }
 
-export const updateNote = async (data: string, id: string) => {
-
+export const updateNote = async (id: string,input: {title:string,content:string,author:string,tags:string[]},) => {
     let config = {
         method: 'put',
         maxBodyLength: Infinity,
@@ -226,7 +225,7 @@ export const updateNote = async (data: string, id: string) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        data: data
+        data: input
     };
 
     try {
@@ -304,30 +303,22 @@ export const renameFolder = async (id: string, name: string) => {
     }
 }
 
-export const loginUser = async (username:string,password:string) => {
-    const axios = require('axios');
-    let data = JSON.stringify({
-        "username": username,
-        "password": password
-    });
-
+export const deleteFolder = async (id: string) => {
     let config = {
-        method: 'post',
+        method: 'delete',
         maxBodyLength: Infinity,
-        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/login`,
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/folder/${id}`,
+        headers: {},
         withCredentials: true,
-        data: data
     };
-    try {
-        const response = await axios.request(config);
-        console.log(JSON.stringify(response.data));
-        return response.data
-    }
-    catch (error) {
-        console.log(error);
-    }
+        try {
+            const response = await axios.request(config);
+            console.log(response.data)
+            return response.data
+        }
+        catch (error) {
+            console.log(error);
+            return error
+        }
 
 }

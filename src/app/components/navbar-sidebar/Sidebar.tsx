@@ -1,5 +1,5 @@
+import { Collection_ICON, FEED_ICON, SETTINGS_ICON } from '@/app/assets/Icons'
 import Link from 'next/link'
-import { Collection, Feed, Settings } from "@/app/assets/SidebarIcons"
 import { Dispatch, SetStateAction } from 'react'
 
 type SideBarProps = {
@@ -12,19 +12,19 @@ const Sidebar = ({ isSidebarOpen,setSideBarOpen }: SideBarProps) => {
     {
       id:1,
       url:'/',
-      icon: Feed,
+      icon: FEED_ICON,
       name:"Feed"
     },
     {
       id:2,
       url:'/collections',    
-      icon:Collection,
+      icon:Collection_ICON,
       name:"Collections"
     },
     {
       id:3,
       url:"/settings",
-      icon:Settings,
+      icon:SETTINGS_ICON,
       name:"Settings"
     }
   ]
@@ -32,10 +32,11 @@ const Sidebar = ({ isSidebarOpen,setSideBarOpen }: SideBarProps) => {
       <>
         <aside
           id="logo-sidebar"
-          className={`fixed top-0 left-0 z-40 md:w-64 w-[90%] h-screen pt-20 transition-transform bg-primary border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700 ${isSidebarOpen ? " translate-x-0" : "-translate-x-full"}`}
+          className={`fixed block top-0 left-0 z-40 md:hidden w-[80%] h-screen pt-10 transition-transform bg-primary border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700 ${isSidebarOpen ? " translate-x-0" : "-translate-x-full"}`}
           aria-label="Sidebar"
         >
-          <div className="h-full px-3 pb-4 overflow-y-auto bg-primary dark:bg-gray-800">
+          <div className="px-3 pb-4 overflow-y-auto bg-primary dark:bg-gray-800">
+              <p onClick={()=>setSideBarOpen(false)}>close</p>
             <ul className="space-y-2 font-medium">
               {
                 navbar_sidebar.map((item)=>{
