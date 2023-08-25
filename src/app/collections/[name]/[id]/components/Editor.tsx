@@ -13,6 +13,7 @@ import { BsLockFill, BsUnlockFill } from "react-icons/bs";
 import { useEffect, useState } from "react"
 import { MdSave, MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import { updateNote } from '@/app/utils/api/notes';
+import { tap } from 'node:test/reporters';
 
 type EditorProps = {
   content: string | undefined,
@@ -52,12 +53,13 @@ const Editor = (props: EditorProps) => {
 
   const save = async () => {
     //Create Save function to update a note
+
     try {
       const response = await updateNote(props.noteid, {
         title,
         content: getHTML(editor),
         author: current_user.username,
-        tags: tags.map(item => item.name)
+        tags: [...new Set(tags.map(item => item.name))]
       })
       if (response.message == "Note Updated!") alert(`Updated`)
     } catch (error) {
