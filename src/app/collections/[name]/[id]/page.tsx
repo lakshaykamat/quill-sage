@@ -13,14 +13,13 @@ const Page = ({ params }: { params: { id: string } }) => {
   
   if(fetchTags.isLoading || fetchNoteData.isLoading ) return <h1>Loading...</h1>
   if(fetchTags.isError || fetchNoteData.isError) return <h1>Error :(</h1>
-
     return (
       <div className='flex flex-col max-w-6xl gap-1 mx-5 mt-6 xl:mx-auto sm:mt-12'>
         <Editor
           tags={fetchNoteData.data.tags.map((name:string, index:number) => ({
             id: index, name
           }))}
-          suggestions={fetchTags.data}
+          suggestions={fetchTags.data.map((name:string,index:number)=>({id:index,name}))}
           content={fetchNoteData.data.content}
           noteid={id}
           title={fetchNoteData.data.title}

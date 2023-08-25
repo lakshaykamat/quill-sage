@@ -4,12 +4,11 @@ import {Dispatch,SetStateAction,useRef,useCallback} from 'react'
 import { Tag } from '../types'
 type Props = {
     tags:Tag[],
-    suggestions:Tag[]
+    suggestions:Array<{id:number,name:string}>
     setTags:Dispatch<SetStateAction<Tag[]>>
-    setSuggestions:Dispatch<SetStateAction<Tag[]>>
 }
 
-const Tags = ({tags,setTags,suggestions,setSuggestions}: Props) => {
+const Tags = ({tags,setTags,suggestions}: Props) => {
     const reactTags = useRef()
 
     const onDelete = useCallback((tagIndex:number) => {
@@ -19,7 +18,6 @@ const Tags = ({tags,setTags,suggestions,setSuggestions}: Props) => {
     const onAddition = useCallback((newTag:Tag) => {
       setTags([...tags, newTag])
     }, [tags])
-  
     return (
         //@ts-ignore
       <ReactTags
@@ -48,7 +46,7 @@ const Tags = ({tags,setTags,suggestions,setSuggestions}: Props) => {
             )
           }}
           allowNew
-        minQueryLength={1}
+        minQueryLength={2}
         onDelete={onDelete}
         onAddition={onAddition}
       />

@@ -12,7 +12,6 @@ const Login = () => {
     const log = async()=>{
        // e.preventDefault();
         try {
-            console.log(loginData)
          const res =await loginUser(loginData.username,loginData.password)
              if(res === "success") return router.push('/')
 

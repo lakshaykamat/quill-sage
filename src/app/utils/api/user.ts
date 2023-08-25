@@ -37,6 +37,5 @@ export const deleteData = async () => {
   const response = await API.get(`/api/v1/user/del/all`, {
     withCredentials: true,
   });
-  console.log(response.data)
   return response.data;
 };

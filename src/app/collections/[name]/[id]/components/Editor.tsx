@@ -19,7 +19,7 @@ type EditorProps = {
   title: string | undefined,
   noteid: string
   tags: Tag[]
-  suggestions: Tag[]
+  suggestions: Array<{id:number,name:string}>
   visibility: boolean
 }
 
@@ -32,7 +32,6 @@ const Editor = (props: EditorProps) => {
   const [tags, setTags] = useState<Tag[]>(props.tags);
 
   const [suggestions, setSuggestions] = useState<Tag[]>(props.suggestions);
-
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -111,7 +110,6 @@ const Editor = (props: EditorProps) => {
           <Tags
             tags={tags}
             setTags={setTags}
-            setSuggestions={setSuggestions}
             suggestions={suggestions} />
         </>
       )}
