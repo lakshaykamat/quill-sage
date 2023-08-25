@@ -1,8 +1,11 @@
-import { Dispatch, SetStateAction, } from "react"
+"use client"
+import { Dispatch, SetStateAction, useState, } from "react"
 import { User } from "@/app/types"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Collection_ICON, HOME_ICON, NOTE_ICON, SETTINGS_ICON, USER_ICON } from "@/app/assets/Icons"
+import { AiOutlineSearch } from "react-icons/ai"
 
 type NavBarProps = {
   userData: User
@@ -10,6 +13,12 @@ type NavBarProps = {
 }
 
 const Navbar = ({ setSideBarOpen, userData }: NavBarProps) => {
+  const router = useRouter()
+  const [searchText,setSearchText] = useState('')
+
+  const searchNote = ()=>{
+    router.push(`/search/${searchText}`)
+  }
 
   return (
     <>
@@ -45,7 +54,9 @@ const Navbar = ({ setSideBarOpen, userData }: NavBarProps) => {
                 snap note
               </span>
               <div className="hidden gap-3 ml-6 md:flex it-ems-center">
-                <input type="text" placeholder="Search any note" className="px-3 py-1 transition-all bg-inherit rounded-2xl outline-1 outline outline-gray-700 focus:ring-2 ring-gray-700 ring-offset-2" />
+                <input value={searchText} onChange={(e)=>setSearchText(e.target.value)} type="text" placeholder="Search any note" className="px-3 py-1 transition-all bg-inherit rounded-2xl outline-1 outline outline-gray-700 focus:ring-2 ring-gray-700 ring-offset-2" />
+                <button className="px-2 py-1 rounded bg-slate-500" onClick={searchNote}>
+                  <AiOutlineSearch className="w-6 h-6 text-white"/></button>
               </div>
             </div>
 

@@ -23,3 +23,11 @@ export const updateNote = async (noteid: string, data: any) => {
   });
   return response.data;
 };
+
+//Fetch note details by note id
+export const searchNote = async (key: string): Promise<Note[]> => {
+  const response = await API.get(`/api/v1/notes/search/${key}`, {
+    withCredentials: true,
+  });
+  return response.data;
+};
