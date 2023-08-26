@@ -13,7 +13,7 @@
         @apply mb-2 text-2xl font-semibold leading-snug tracking-tighter md:text-3xl;
     }
     h4{
-        @apply mb-2 text-xl font-semibold leading-relaxed tracking-wider md:text-2xl;
+        @apply mb-2 text-xl font-semibold leading-relaxed tracking-normal md:text-2xl;
     }
     h5{
         @apply mb-1 text-lg font-semibold leading-loose tracking-normal md:text-xl;
@@ -28,6 +28,6 @@
 
 @layer components{
     .button-1{
-        @apply  px-2 py-2 text-sm rounded-sm sm:px-3 focus:ring-2 ring-offset-2 ring-gray-700 bg-slate-300;
+        @apply  px-2 py-2 text-sm bg-blue-500 bg-[#4169E1] text-white rounded sm:px-3 focus:ring-2 ring-offset-2 ring-gray-700;
     }
 }

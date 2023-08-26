@@ -3,7 +3,7 @@ import { AiFillTags, AiFillSetting, AiFillFileAdd, AiFillHome, AiFillHeart, AiOu
 import { BsFillCollectionFill } from "react-icons/bs"
 import { FaUserCircle, FaStickyNote } from "react-icons/fa"
 
-const styles = "w-6 h-6 text-gray-700"
+const styles = "w-8 h-8  text-[#6495ED]"
 export const FEED_ICON = <MdRssFeed className={styles} />
 export const NOTE_ICON = <FaStickyNote className={styles} />
 export const TAGS_ICON = <AiFillTags className={styles} />

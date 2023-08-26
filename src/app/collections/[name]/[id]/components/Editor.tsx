@@ -69,16 +69,16 @@ const Editor = (props: EditorProps) => {
   return (
     <main className="max-w-full">
       <div className="flex items-center gap-3 mb-4">
-        <button className="flex gap-1 px-3 py-2 rounded drop-shadow bg-button" onClick={() => setIsEditable(!isEditable)}>
+        <button className="flex gap-1 px-3 py-2 text-gray-300 rounded drop-shadow bg-accent" onClick={() => setIsEditable(!isEditable)}>
           {!isEditable ? "Lock" : "Unlock"}
           {!isEditable ? (
-            <BsLockFill title="Lock" className="w-6 h-6 text-gray-500" />
+            <BsLockFill title="Lock" className="w-6 h-6" />
           ) : (
             <BsUnlockFill title="Unlock" className="w-6 h-6" />
           )}
         </button>
         {
-          isEditable && <button onClick={save} title="Save" className="flex gap-1 px-3 py-2 rounded drop-shadow bg-button">
+          isEditable && <button onClick={save} title="Save" className="flex gap-1 px-3 py-2 text-gray-300 rounded drop-shadow bg-accent">
             Save
             <MdSave className="w-6 h-6" />
           </button>
@@ -87,7 +87,7 @@ const Editor = (props: EditorProps) => {
         <button onClick={() => {
           changeVisibilty(props.noteid)
           setIsPrivate((prev) => !prev)
-        }} className="flex gap-1 px-2 py-1 rounded drop-shadow bg-button">
+        }} className="flex gap-1 px-2 py-1 text-gray-300 rounded drop-shadow bg-accent">
           {isPrivate ? "Private" : "Public"}
           {isPrivate ? <MdVisibilityOff title="Private" className="w-6 h-6" /> : <MdVisibility title="Public " className="w-6 h-6" />}
         </button>

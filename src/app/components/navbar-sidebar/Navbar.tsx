@@ -17,12 +17,13 @@ const Navbar = ({ setSideBarOpen, userData }: NavBarProps) => {
   const [searchText,setSearchText] = useState('')
 
   const searchNote = ()=>{
+    if(!searchText) return
     router.push(`/search/${searchText}`)
   }
 
   return (
     <>
-      <nav className="w-full mb-5 border-b border-gray-500">
+      <nav className="w-full py-3 mb-5 border-b border-gray-400">
         <div className="px-3 py-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-around">
             <div className="flex items-center justify-start">
@@ -50,32 +51,32 @@ const Navbar = ({ setSideBarOpen, userData }: NavBarProps) => {
                 </svg>
               </button>
               {NOTE_ICON}
-              <span className="self-center ml-3 text-xl font-semibold capitalize text-slate-800 sm:text-2xl whitespace-nowrap">
+              <span className="self-center ml-3 text-xl font-semibold capitalize text-slate-800 sm:text-3xl whitespace-nowrap">
                 snap note
               </span>
               <div className="hidden gap-3 ml-6 md:flex it-ems-center">
-                <input value={searchText} onChange={(e)=>setSearchText(e.target.value)} type="text" placeholder="Search any note" className="px-3 py-1 transition-all bg-inherit rounded-2xl outline-1 outline outline-gray-700 focus:ring-2 ring-gray-700 ring-offset-2" />
-                <button className="px-2 py-1 rounded bg-slate-500" onClick={searchNote}>
-                  <AiOutlineSearch className="w-6 h-6 text-white"/></button>
+                <input value={searchText} onChange={(e)=>setSearchText(e.target.value)} type="text" placeholder="Search any note" className="px-4 py-2 transition-all bg-inherit rounded-3xl outline-1 outline outline-gray-700 focus:ring-2 ring-gray-700 ring-offset-2" />
+                <button onClick={searchNote}>
+                  <AiOutlineSearch className="w-6 h-6 ml-4 text-gray-600 m"/></button>
               </div>
             </div>
 
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-10">
               {/* {userData && <span className="hidden text-sm md:block">
                 <span className="font-semibold">{getRandomGreeting()}</span> {userData.username}</span>} */}
-              <Link href="/" className="hidden md:block">
+              <Link href="/" title="Home" className="hidden md:block">
                 {HOME_ICON}
               </Link>
-              <Link href="/collections" className="hidden md:block">
+              <Link href="/collections" title="Collection" className="hidden md:block">
                 {Collection_ICON}
+              </Link>
+              <Link href="/settings" title="Settings" className="hidden md:block">
+                {SETTINGS_ICON}
               </Link>
               <Link href={'/profile'}>
                 {
-                  userData ? <Image width={30} height={30} className="rounded-full" src={userData.avatar} alt="User avatar" /> : USER_ICON
+                  userData ? <Image width={40} height={40} className="rounded-full drop-shadow" src={userData.avatar} alt="User avatar" /> : USER_ICON
                 }
-              </Link>
-              <Link href="/settings" className="hidden md:block">
-                {SETTINGS_ICON}
               </Link>
             </div>
           </div>

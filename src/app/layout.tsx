@@ -20,14 +20,10 @@ export default function RootLayout({
           <title>Snap Note</title>
           <link rel="icon" href="/src/app/favicon.ico" sizes="any" />
         </head>
-        <body className={`${inter.className}`}>
+        <body className={`${inter.className} bg-neutral-200`}>
           <Context>
             <NavBarAndSideBar />
-            {/* <div className="p-4 md:ml-64"> */}
-            {/* <main className="px-1 py-2 sm:px-2 mt-14"> */}
             {children}
-            {/* </main> */}
-            {/* </div> */}
           </Context>
           <ReactQueryDevtools />
         </body>

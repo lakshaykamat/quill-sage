@@ -1,5 +1,5 @@
 "use client";
-import Card from "./components/Card";
+import {Card,Cardv2} from "./components/Card";
 import { useQuery } from "@tanstack/react-query";
 import { Note } from "./types";
 import { fetchNotesOnFeed } from "./utils/api/notes";
@@ -31,10 +31,27 @@ const Feed = () => {
       );
     }
   );
+  const public_notes2: JSX.Element[] | JSX.Element = feedNotesQuery.data.map(
+    (note: Note) => {
+      return (
+        <Cardv2
+          key={note._id}
+          note_id={note._id}
+          user_id={note.user_id}
+          title={note.title}
+          likes={note.likes}
+          tags={note.tags}
+          content={note.content}
+          date={note.createdAt}
+        />
+      );
+    }
+  );
   return (
     <div className="flex flex-col max-w-6xl gap-3 mx-auto my-12">
       <div className="grid grid-cols-1 gap-5 mx-5 lg:grid-cols-3 sm:grid-cols-2">
-        {public_notes}
+        {/* {public_notes} */}
+        {public_notes2}
       </div>
     </div>
   );
