@@ -7,6 +7,8 @@ import { createFolder, getAllFolders } from "../lib";
 import { CreateNoteSVG } from "../assets/Illustrations";
 import { fetchAllFolders } from "../utils/api/folder";
 import { useQuery } from "@tanstack/react-query";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Collections = () => {
   const [InputBox, setInputBox] = useState({ status: false, text: "" });
@@ -15,8 +17,6 @@ const Collections = () => {
     queryFn: () => fetchAllFolders(),
   });
 
-  
-  if (allFolders.isLoading) return <h1>Loading...</h1>;
   if (allFolders.isError) return <h1>Error: Something went wrong</h1>;
 
   async function handle(e: React.FormEvent<HTMLFormElement>) {
@@ -31,7 +31,6 @@ const Collections = () => {
       console.log(`Error ${error}`);
     }
   }
-
   return (
     <div className="flex flex-col max-w-6xl gap-1 mx-5 mt-6 xl:mx-auto sm:mt-12">
       <div>
@@ -64,23 +63,39 @@ const Collections = () => {
             </form>
           </div>
         )}
-        {allFolders.data.length === 0
-          ? !InputBox.status && (
-              <div className="flex flex-col items-center justify-center mx-auto mt-12">
-                <CreateNoteSVG />
-                <p className="mt-6">Create a new Collection</p>
-              </div>
-            )
-          : allFolders.data.map((folder: Folder) => {
-              return (
-                <FolderCard
-                  key={folder._id}
-                  id={folder._id}
-                  name={folder.name}
-                />
-              );
-            })}
+        {allFolders.isLoading ? (
+          <LoadingSkeleton />
+        ) : allFolders.data.length === 0 ? (
+          !InputBox.status && <ZeroFolder />
+        ) : (
+          allFolders.data.map((folder: Folder) => {
+            return (
+              <FolderCard key={folder._id} id={folder._id} name={folder.name} />
+            );
+          })
+        )}
       </div>
+    </div>
+  );
+};
+
+const LoadingSkeleton = () => {
+  return (
+    <>
+      <Skeleton height={100} width={100} />
+      <Skeleton height={100} width={100} />
+      <Skeleton height={100} width={100} />
+      <Skeleton height={100} width={100} />
+      <Skeleton height={100} width={100} />
+      <Skeleton height={100} width={100} />
+    </>
+  );
+};
+const ZeroFolder = () => {
+  return (
+    <div className="flex flex-col items-center justify-center mx-auto mt-12">
+      <CreateNoteSVG />
+      <p className="mt-6">Create a new Collection</p>
     </div>
   );
 };

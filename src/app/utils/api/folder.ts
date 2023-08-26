@@ -13,3 +13,11 @@ export const fetchAllFolders = async (): Promise<Folder[]> => {
     const response = await API.post('/api/v1/folder', { name }, { withCredentials: true })
     return response.data;
   };
+
+  
+  //Fetch all folders of user
+  export const fetchFolderByName = async (name: string) => {
+    const response = await API.get(`/api/v1/folder/name/${name}`,  { withCredentials: true })
+    console.log(response.data)
+    return response.data;
+  };
