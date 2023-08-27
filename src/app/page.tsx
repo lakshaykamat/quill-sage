@@ -6,6 +6,8 @@ import { fetchNotesOnFeed } from "./utils/api/notes";
 import { Note } from "./types";
 import Card from "./components/Card";
 import Link from "next/link";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const MOST_RECENT_NOTES_LIMIT = 6;
 const TAG_NOTES_LIMIT = 3;
@@ -19,14 +21,14 @@ const ExplorePage = () => {
     queryKey: ["feedNotes"],
     queryFn: () => fetchNotesOnFeed(),
   });
-  if (fetchTags.data && feedNotesQuery.data) {
-    return (
-      <main className="max-w-5xl mx-auto my-12">
-        <h1 className="mb-12">Explore</h1>
-        <div>
-          <SectionHeader title={"Most Recent"} url={`/explore`} />
-          <div className="grid grid-cols-3 gap-5">
-            {feedNotesQuery.data
+  return (
+    <main className="max-w-5xl mx-auto my-12">
+      <h1 className="mb-12">Explore</h1>
+      <div>
+        <SectionHeader title={"Most Recent"} url={`/explore`} />
+        <div className="grid grid-cols-3 gap-5">
+          {fetchTags.data && feedNotesQuery.data ? (
+            feedNotesQuery.data
               .slice(0, MOST_RECENT_NOTES_LIMIT)
               .map((note) => {
                 return (
@@ -41,20 +43,27 @@ const ExplorePage = () => {
                     date={note.createdAt}
                   />
                 );
-              })}
-          </div>
+              })
+          ) : (
+           <LoadingSkeleton/>
+          )}
         </div>
-        {fetchTags.data.map((tag: string) => {
+      </div>
+      {fetchTags.data && feedNotesQuery.data ? (
+        fetchTags.data.map((tag: string) => {
           const notes = feedNotesQuery.data.filter((note) =>
             note.tags.includes(tag)
           );
           return <Section title={tag} notes={notes} />;
-        })}
-      </main>
-    );
-  }
-  if (fetchTags.isLoading && feedNotesQuery.isLoading)
-    return <h2>Loading...</h2>;
+        })
+      ) : (
+        <div className="my-6">
+          <Skeleton height={50} />
+         <LoadingSkeleton/>
+        </div>
+      )}
+    </main>
+  );
 };
 
 const Section = ({ title, notes }: { title: string; notes: Note[] }) => {
@@ -89,6 +98,18 @@ const SectionHeader = ({ title, url }: { title: string; url: string }) => {
         View all
       </Link>
     </div>
+  );
+};
+
+const LoadingSkeleton = () => {
+  return (
+    <>
+      <div className="flex gap-5 my-6">
+        <Skeleton height={300} width={300} />
+        <Skeleton height={300} width={300} />
+        <Skeleton height={300} width={300} />
+      </div>
+    </>
   );
 };
 export default ExplorePage;
