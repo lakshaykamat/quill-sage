@@ -1,64 +1,43 @@
 "use client";
+import {Cardv2} from "../components/Card";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import { fetchAllTags } from "../utils/api/tags";
-import { fetchNotesOnFeed } from "../utils/api/notes";
 import { Note } from "../types";
-import Card from "../components/Card";
-import Link from "next/link";
+import { fetchNotesOnFeed } from "../utils/api/notes";
 
-const ExplorePage = () => {
-  const fetchTags = useQuery({
-    queryKey: ["fetch_note_tags"],
-    queryFn: () => fetchAllTags(),
-  });
+const MostRecentPage = () => {
   const feedNotesQuery = useQuery({
     queryKey: ["feedNotes"],
-    queryFn: () => fetchNotesOnFeed(),
+    queryFn: () => {
+      return fetchNotesOnFeed();
+    },
   });
-  if (fetchTags.data && feedNotesQuery.data) {
-    return (
-      <main className="max-w-5xl mx-auto mt-12">
-        <h1>Explore</h1>
 
-        {fetchTags.data.map((tag: string) => {
-          const notes = feedNotesQuery.data.filter((note) =>
-            note.tags.includes(tag)
-          );
-          return <Section title={tag} notes={notes} />;
-        })}
-      </main>
-    );
-  }
-  if (fetchTags.isLoading && feedNotesQuery.isLoading)
-    return <h2>Loading...</h2>;
-};
 
-const Section = ({ title, notes }: { title: string; notes: Note[] }) => {
-  if (notes.length <= 0) return;
+  if (feedNotesQuery.isLoading) return <h1>Loading...</h1>;
+  if (feedNotesQuery.isError) return <pre>Error: Refersh the page :(</pre>;
+  const public_notes: JSX.Element[] | JSX.Element = feedNotesQuery.data.map(
+    (note: Note) => {
+      return (
+        <Cardv2
+          key={note._id}
+          note_id={note._id}
+          user_id={note.user_id}
+          title={note.title}
+          likes={note.likes}
+          tags={note.tags}
+          content={note.content}
+          date={note.createdAt}
+        />
+      );
+    }
+  );
   return (
-    <div>
-      <div className="flex justify-between my-6">
-        <h3>{title}</h3>
-        <Link href={`/explore/${title}`}>View all</Link>
-      </div>
-      <div className="grid grid-cols-3 gap-5">
-        {notes.slice(0,3).map((note) => {
-          return (
-            <Card
-              key={note._id}
-              note_id={note._id}
-              user_id={note.user_id}
-              title={note.title}
-              likes={note.likes}
-              tags={note.tags}
-              content={note.content}
-              date={note.createdAt}
-            />
-          );
-        })}
+    <div className="flex flex-col max-w-6xl gap-3 mx-auto my-12">
+      <h1>Most Recent</h1>
+      <div className="grid grid-cols-1 gap-5 mx-5 lg:grid-cols-3 sm:grid-cols-2">
+        {public_notes}
       </div>
     </div>
   );
 };
-export default ExplorePage;
+export default MostRecentPage;

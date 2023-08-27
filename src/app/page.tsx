@@ -1,59 +1,94 @@
 "use client";
-import {Card,Cardv2} from "./components/Card";
 import { useQuery } from "@tanstack/react-query";
-import { Note } from "./types";
+import React from "react";
+import { fetchAllTags } from "./utils/api/tags";
 import { fetchNotesOnFeed } from "./utils/api/notes";
+import { Note } from "./types";
+import Card from "./components/Card";
+import Link from "next/link";
 
-const Feed = () => {
+const MOST_RECENT_NOTES_LIMIT = 6;
+const TAG_NOTES_LIMIT = 3;
+
+const ExplorePage = () => {
+  const fetchTags = useQuery({
+    queryKey: ["fetch_note_tags"],
+    queryFn: () => fetchAllTags(),
+  });
   const feedNotesQuery = useQuery({
     queryKey: ["feedNotes"],
-    queryFn: () => {
-      return fetchNotesOnFeed();
-    },
+    queryFn: () => fetchNotesOnFeed(),
   });
+  if (fetchTags.data && feedNotesQuery.data) {
+    return (
+      <main className="max-w-5xl mx-auto my-12">
+        <h1 className="mb-12">Explore</h1>
+        <div>
+          <SectionHeader title={"Most Recent"} url={`/explore`} />
+          <div className="grid grid-cols-3 gap-5">
+            {feedNotesQuery.data
+              .slice(0, MOST_RECENT_NOTES_LIMIT)
+              .map((note) => {
+                return (
+                  <Card
+                    key={note._id}
+                    note_id={note._id}
+                    user_id={note.user_id}
+                    title={note.title}
+                    likes={note.likes}
+                    tags={note.tags}
+                    content={note.content}
+                    date={note.createdAt}
+                  />
+                );
+              })}
+          </div>
+        </div>
+        {fetchTags.data.map((tag: string) => {
+          const notes = feedNotesQuery.data.filter((note) =>
+            note.tags.includes(tag)
+          );
+          return <Section title={tag} notes={notes} />;
+        })}
+      </main>
+    );
+  }
+  if (fetchTags.isLoading && feedNotesQuery.isLoading)
+    return <h2>Loading...</h2>;
+};
 
-
-  if (feedNotesQuery.isLoading) return <h1>Loading...</h1>;
-  if (feedNotesQuery.isError) return <pre>Error: Refersh the page :(</pre>;
-  const public_notes: JSX.Element[] | JSX.Element = feedNotesQuery.data.map(
-    (note: Note) => {
-      return (
-        <Card
-          key={note._id}
-          note_id={note._id}
-          user_id={note.user_id}
-          title={note.title}
-          likes={note.likes}
-          tags={note.tags}
-          content={note.content}
-          date={note.createdAt}
-        />
-      );
-    }
-  );
-  const public_notes2: JSX.Element[] | JSX.Element = feedNotesQuery.data.map(
-    (note: Note) => {
-      return (
-        <Cardv2
-          key={note._id}
-          note_id={note._id}
-          user_id={note.user_id}
-          title={note.title}
-          likes={note.likes}
-          tags={note.tags}
-          content={note.content}
-          date={note.createdAt}
-        />
-      );
-    }
-  );
+const Section = ({ title, notes }: { title: string; notes: Note[] }) => {
+  if (notes.length <= 0) return;
   return (
-    <div className="flex flex-col max-w-6xl gap-3 mx-auto my-12">
-      <div className="grid grid-cols-1 gap-5 mx-5 lg:grid-cols-3 sm:grid-cols-2">
-        {/* {public_notes} */}
-        {public_notes2}
+    <div>
+      <SectionHeader title={title} url={`/explore/${title}`} />
+      <div className="grid grid-cols-3 gap-5">
+        {notes.slice(0, TAG_NOTES_LIMIT).map((note) => {
+          return (
+            <Card
+              key={note._id}
+              note_id={note._id}
+              user_id={note.user_id}
+              title={note.title}
+              likes={note.likes}
+              tags={note.tags}
+              content={note.content}
+              date={note.createdAt}
+            />
+          );
+        })}
       </div>
     </div>
   );
 };
-export default Feed;
+const SectionHeader = ({ title, url }: { title: string; url: string }) => {
+  return (
+    <div className="flex items-center justify-between my-6">
+      <h3>{title}</h3>
+      <Link href={url} className="text-blue-600">
+        View all
+      </Link>
+    </div>
+  );
+};
+export default ExplorePage;
