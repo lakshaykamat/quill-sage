@@ -54,7 +54,7 @@ const ExplorePage = () => {
           const notes = feedNotesQuery.data.filter((note) =>
             note.tags.includes(tag)
           );
-          return <Section title={tag} notes={notes} />;
+          return <Section  title={tag} notes={notes} />;
         })
       ) : (
         <div className="my-6">

@@ -1,30 +1,36 @@
-"use client"
-import { Dispatch, SetStateAction, useState, } from "react"
-import { User } from "@/app/types"
-import Image from "next/image"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { Collection_ICON, HOME_ICON, NOTE_ICON, SETTINGS_ICON, USER_ICON } from "@/app/assets/Icons"
-import { AiOutlineSearch } from "react-icons/ai"
+"use client";
+import { Dispatch, SetStateAction, useState } from "react";
+import { User } from "@/app/types";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import {
+  Collection_ICON,
+  HOME_ICON,
+  NOTE_ICON,
+  SETTINGS_ICON,
+  USER_ICON,
+} from "@/app/assets/Icons";
+import { AiOutlineSearch } from "react-icons/ai";
 
 type NavBarProps = {
-  userData: User
-  setSideBarOpen: Dispatch<SetStateAction<boolean>>
-}
+  userData: User;
+  setSideBarOpen: Dispatch<SetStateAction<boolean>>;
+};
 
 const Navbar = ({ setSideBarOpen, userData }: NavBarProps) => {
-  const router = useRouter()
-  const [searchText,setSearchText] = useState('')
+  const router = useRouter();
+  const [searchText, setSearchText] = useState("");
 
-  const searchNote = ()=>{
-    if(!searchText) return
-    router.push(`/search/${searchText}`)
-  }
+  const searchNote = () => {
+    if (!searchText) return;
+    router.push(`/search/${searchText}`);
+  };
 
   return (
     <>
-      <nav className="w-full py-3 mb-5 border-b border-gray-400">
-        <div className="px-3 py-3 lg:px-5 lg:pl-3">
+      <nav className="w-full mb-5 border-b border-gray-400">
+        <div className="px-3 py-5 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-around">
             <div className="flex items-center justify-start">
               <button
@@ -55,35 +61,57 @@ const Navbar = ({ setSideBarOpen, userData }: NavBarProps) => {
                 snap note
               </span>
               <div className="hidden gap-3 ml-6 md:flex it-ems-center">
-                <input value={searchText} onChange={(e)=>setSearchText(e.target.value)} type="text" placeholder="Search any note" className="px-4 py-2 transition-all bg-inherit rounded-3xl outline-1 outline outline-gray-700 focus:ring-2 ring-gray-700 ring-offset-2" />
+                <input
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                  type="text"
+                  placeholder="Search any note"
+                  className="px-4 py-2 transition-all bg-inherit rounded-3xl outline-1 outline outline-gray-700 focus:ring-2 ring-gray-700 ring-offset-2"
+                />
                 <button onClick={searchNote}>
-                  <AiOutlineSearch className="w-6 h-6 ml-4 text-gray-600 m"/></button>
+                  <AiOutlineSearch className="w-6 h-6 ml-4 text-gray-600 m" />
+                </button>
               </div>
             </div>
 
             <div className="flex items-center gap-10">
-              {/* {userData && <span className="hidden text-sm md:block">
-                <span className="font-semibold">{getRandomGreeting()}</span> {userData.username}</span>} */}
               <Link href="/" title="Home" className="hidden md:block">
                 {HOME_ICON}
               </Link>
-              <Link href="/collections" title="Collection" className="hidden md:block">
+              <Link
+                href="/collections"
+                title="Collection"
+                className="hidden md:block"
+              >
                 {Collection_ICON}
               </Link>
-              <Link href="/settings" title="Settings" className="hidden md:block">
+              <Link
+                href="/settings"
+                title="Settings"
+                className="hidden md:block"
+              >
                 {SETTINGS_ICON}
               </Link>
-              <Link href={'/profile'}>
-                {
-                  userData ? <Image width={40} height={40} className="rounded-full drop-shadow" src={userData.avatar} alt="User avatar" /> : USER_ICON
-                }
+              <Link href={"/profile"}>
+                {userData ? (
+                  <div className="rounded-full p-[3px] outline-1 outline outline-gray-600 ">
+                    <Image
+                      width={40}
+                      height={40}
+                      className="rounded-full drop-shadow"
+                      src={userData.avatar}
+                      alt="User avatar"
+                    />
+                  </div>
+                ) : (
+                  USER_ICON
+                )}
               </Link>
             </div>
           </div>
         </div>
       </nav>
     </>
-
-  )
-}
-export default Navbar
+  );
+};
+export default Navbar;

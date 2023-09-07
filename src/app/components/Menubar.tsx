@@ -34,13 +34,13 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
           onClick={() => editor.chain().focus().toggleBold().run()}
           disabled={!editor.can().chain().focus().toggleBold().run()}
           className={`px-4 py-2 rounded ${
-            editor.isActive("bold") ? "bg-accent" : "bg-blue-200"
+            editor.isActive("bold") ? "bg-gray-200" : "bg-gray-500"
           } ${
             !editor.can().chain().focus().toggleItalic().run() && "opacity-70"
           }`}
         >
           <AiOutlineBold
-            className={`w-8 h-8 ${editor.isActive("bold") && "text-slate-200"}`}
+            className={`w-8 h-8 text-black ${editor.isActive("bold")}`}
           />
         </button>
         <button

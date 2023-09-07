@@ -19,7 +19,7 @@ const Settings = () => {
       <div className="flex gap-1">
         <button
           onClick={deleteAllData}
-          className="px-2 py-2 text-white bg-red-500 rounded"
+          className="px-2 py-2 text-white bg-red-500 rounded hover:bg-red-700"
         >
           Delete all data
         </button>

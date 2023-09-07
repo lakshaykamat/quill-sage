@@ -25,7 +25,7 @@ const Page = ({ params }: { params: { name: string } }) => {
   return (
     <div className="flex-col max-w-6xl gap-1 mx-5 mt-6 lex xl:mx-auto sm:mt-12">
       <div>
-        <h2>{removeEncodingSting(name)}</h2>
+        <h2 className="mb-6">{removeEncodingSting(name)}</h2>
         <button
           onClick={() => setInputBox({ ...inputBox, status: true })}
           className="flex items-center gap-2 button-1"

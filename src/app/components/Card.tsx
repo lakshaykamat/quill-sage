@@ -166,11 +166,9 @@ export const Cardv2 = ({
   return (
     <div className="flex flex-col items-start rounded-lg  p-6   bg-[#f0f0f0] bg-netral-500 bg-[#FFFAFA] drop-shadow-md">
       <div className="flex justify-between">
-        <Link href={`/note/${note_id}`}>
           <h4 title={title} className="text-black">
             {short_title}
           </h4>
-        </Link>
       </div>
       <div className="flex flex-wrap gap-3 mb-3 empty:hidden">{all_tags}</div>
       <p
@@ -201,9 +199,11 @@ export const Cardv2 = ({
           {/* <span className="text-sm text-slate-300">{getDate(date)}</span> */}
         </div>
       </div>
-      <div className="flex items-end w-full justify-">
+      <div className="flex items-center justify-between w-full gap-1">
+      <Link href={`/note/${note_id}`}>
           <button className="text-white button-1">Read More</button>
-          {/* <span className="text-sm text-slate-300">{getDate(date)}</span> */}
+      </Link>
+          <span className="text-sm text-gray-700">{getDate(date)}</span>
       </div>
     </div>
   );

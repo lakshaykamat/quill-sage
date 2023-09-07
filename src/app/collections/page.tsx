@@ -3,7 +3,7 @@ import { AiFillFolder, AiFillFolderAdd } from "react-icons/ai";
 import { useState } from "react";
 import FolderCard from "./components/Folder";
 import { Folder } from "../types";
-import { createFolder, getAllFolders } from "../lib";
+import { createFolder } from "../lib";
 import { CreateNoteSVG } from "../assets/Illustrations";
 import { fetchAllFolders } from "../utils/api/folder";
 import { useQuery } from "@tanstack/react-query";
@@ -34,7 +34,7 @@ const Collections = () => {
   return (
     <div className="flex flex-col max-w-6xl gap-1 mx-5 mt-6 xl:mx-auto sm:mt-12">
       <div>
-        <h2>My Collections</h2>
+        <h2 className="mb-6">My Collections</h2>
         <button
           onClick={() => setInputBox({ ...InputBox, status: true })}
           className="flex items-center gap-2 button-1"

@@ -61,7 +61,7 @@ const FolderCard = ({
           href={`collections/${name}`}
           className="flex flex-col items-center p-2 transition-all duration-150 ease-in-out rounded-lg delay-50 hover:bg-slate-100"
         >
-          <AiFillFolder className="w-12 h-12 text-light_accent md:w-24 md:h-24" />
+          <AiFillFolder className="w-12 h-12 text-gray-500 md:w-24 md:h-24" />
           <span className="font-medium">{name}</span>
         </Link>
       </div>
