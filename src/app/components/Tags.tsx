@@ -13,11 +13,11 @@ const Tags = ({tags,setTags,suggestions}: Props) => {
 
     const onDelete = useCallback((tagIndex:number) => {
       setTags(tags.filter((_, i) => i !== tagIndex))
-    }, [tags])
+    }, [tags,setTags])
   
     const onAddition = useCallback((newTag:Tag) => {
       setTags([...tags, newTag])
-    }, [tags])
+    }, [tags,setTags])
     return (
         //@ts-ignore
       <ReactTags

@@ -50,11 +50,11 @@ const ExplorePage = () => {
         </div>
       </div>
       {fetchTags.data && feedNotesQuery.data ? (
-        fetchTags.data.map((tag: string) => {
+        fetchTags.data.map((tag: string,i:number) => {
           const notes = feedNotesQuery.data.filter((note) =>
             note.tags.includes(tag)
           );
-          return <Section  title={tag} notes={notes} />;
+          return <Section key={i} title={tag} notes={notes} />;
         })
       ) : (
         <div className="my-6">
