@@ -16,7 +16,7 @@ export default function Context ({ children }) {
       return response.data
     }
   })
-  if (userQuery.isError) router.push(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/google`)
+  if (userQuery.isError) router.push(`${process.env.NEXT_PUBLIC_CLIENT_URL}/login`)
 
   const current_user = userQuery.data
   return (

@@ -6,16 +6,19 @@ const Settings = () => {
   const router = useRouter();
 
   const log = () => {
-    router.push("http://localhost:8080/auth/google");
+    router.push("http://localhost:3000/login");
   };
 
   const deleteAllData = async() => {
-    const response = await deleteData()
-    response.success ? alert("Deleted") : alert("Failed to delete")
+    const sure = confirm("Are you sure you wan't to delete whole data?")
+    if(sure){
+      const response = await deleteData()
+      response.success ? alert("Deleted") : alert("Failed to delete")
+    }
   };
   return (
     <div className="max-w-6xl mx-auto">
-      <h1>Settings</h1>
+      <h1 className="mb-4">Settings</h1>
       <div className="flex gap-1">
         <button
           onClick={deleteAllData}
