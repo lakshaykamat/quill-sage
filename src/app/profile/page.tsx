@@ -5,6 +5,7 @@ import { Note } from "../types";
 import { FormEvent, useState } from "react";
 import Header from "./components/Header";
 import { ProfileCard } from "./components/ProfileCards";
+import { NotFoundSVG } from "../assets/Illustrations";
 
 const ProfilePage = () => {
   const [inputBox, setInputBox] = useState({ status: false, text: "" });
@@ -44,7 +45,7 @@ const ProfilePage = () => {
       {user_notes.isLoading ? (
         <h1>Loading</h1>
       ) : (
-        user_notes.data.length === 0 ? <h1>No notes</h1>
+        user_notes.data.length === 0 ? <NotFoundSVG/>
           :
           <div className="grid grid-cols-1 gap-5 mx-5 my-3 lg:grid-cols-3 sm:grid-cols-2">
             {user_notes.data.map((note: Note) => {
