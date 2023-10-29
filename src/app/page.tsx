@@ -26,7 +26,7 @@ const ExplorePage = () => {
       <h1 className="mb-12">Explore</h1>
       <div>
         <SectionHeader title={"Most Recent"} url={`/explore`} />
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-3 gap-5 mb-12">
           {fetchTags.data && feedNotesQuery.data ? (
             feedNotesQuery.data
               .slice(0, MOST_RECENT_NOTES_LIMIT)
@@ -71,7 +71,7 @@ const Section = ({ title, notes }: { title: string; notes: Note[] }) => {
   return (
     <div>
       <SectionHeader title={title} url={`/explore/${title}`} />
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-3 gap-5 mb-12">
         {notes.slice(0, TAG_NOTES_LIMIT).map((note) => {
           return (
             <Card
@@ -92,9 +92,9 @@ const Section = ({ title, notes }: { title: string; notes: Note[] }) => {
 };
 const SectionHeader = ({ title, url }: { title: string; url: string }) => {
   return (
-    <div className="flex items-center justify-between my-6">
-      <h3>{title}</h3>
-      <Link href={url} className="text-blue-600">
+    <div className="flex items-center justify-between mb-4">
+      <h2>{title}</h2>
+      <Link href={url} className="text-blue-600 hover:underline">
         View all
       </Link>
     </div>

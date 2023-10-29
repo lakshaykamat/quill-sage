@@ -4,22 +4,22 @@
 
 @layer base{
     h1{
-        @apply mb-4 text-4xl font-bold leading-tight tracking-wide md:text-5xl;
+        @apply mb-5 text-5xl font-extrabold tracking-wider;
     }
     h2{
-        @apply mb-3 text-3xl font-semibold leading-normal tracking-normal md:text-4xl;
+        @apply mb-3 text-4xl font-bold tracking-wide;
     }
     h3{
-        @apply mb-2 text-2xl font-semibold leading-snug tracking-tighter md:text-3xl;
+        @apply text-3xl font-bold;
     }
     h4{
-        @apply mb-2 text-xl font-semibold leading-relaxed tracking-normal md:text-2xl;
+        @apply mb-1 text-xl font-bold;
     }
     h5{
-        @apply mb-1 text-lg font-semibold leading-loose tracking-normal md:text-xl;
+        @apply text-[10px] font-bold;
     }
     h6{
-        @apply mb-1 text-base font-semibold leading-normal tracking-normal md:text-lg;
+        @apply text-lg font-bold ;
     }
     p{
         @apply mb-4 text-base leading-relaxed md:text-lg;
@@ -28,6 +28,6 @@
 
 @layer components{
     .button-1{
-        @apply  px-2 py-2 text-sm bg-blue-500 bg-[#4169E1] text-white rounded sm:px-3 focus:ring-2 ring-offset-2 ring-gray-700;
+        @apply  px-2 py-2 my-2 text-sm text-white bg-blue-700 rounded hover:bg-blue-800 sm:px-3 focus:ring-2 ring-offset-2 ring-blue-500;
     }
 }

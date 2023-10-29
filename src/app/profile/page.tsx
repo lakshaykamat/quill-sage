@@ -44,22 +44,24 @@ const ProfilePage = () => {
       {user_notes.isLoading ? (
         <h1>Loading</h1>
       ) : (
-        <div className="grid grid-cols-1 gap-5 mx-5 my-3 lg:grid-cols-3 sm:grid-cols-2">
-          {user_notes.data.map((note: Note) => {
-            return (
-              <ProfileCard
-                key={note._id}
-                note_id={note._id}
-                user_id={note.user_id}
-                title={note.title}
-                likes={note.likes}
-                tags={note.tags}
-                content={note.content}
-                date={note.createdAt}
-              />
-            );
-          })}
-        </div>
+        user_notes.data.length === 0 ? <h1>No notes</h1>
+          :
+          <div className="grid grid-cols-1 gap-5 mx-5 my-3 lg:grid-cols-3 sm:grid-cols-2">
+            {user_notes.data.map((note: Note) => {
+              return (
+                <ProfileCard
+                  key={note._id}
+                  note_id={note._id}
+                  user_id={note.user_id}
+                  title={note.title}
+                  likes={note.likes}
+                  tags={note.tags}
+                  content={note.content}
+                  date={note.createdAt}
+                />
+              );
+            })}
+          </div>
       )}
     </div>
   );
