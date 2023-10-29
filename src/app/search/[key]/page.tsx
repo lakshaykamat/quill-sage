@@ -16,9 +16,9 @@ const SearchPage = ({ params }: { params: { key: string } }) => {
 
   if (response.data) {
     return (
-      <main className="flex flex-col items-center justify-center mx-auto max-w-7xl">
-        <h3 className="mb-5">Search Results for {key}</h3>
-        <div className="grid grid-cols-1 gap-5 mx-5 lg:grid-cols-3 sm:grid-cols-2">
+      <main className="flex flex-col mx-auto max-w-7xl">
+        <h2 className="mb-3 text-start">Search Results for {decodeURIComponent(key)}</h2>
+        <div className="grid grid-cols-3 gap-5 mb-12">
           {response.data.length > 0 ? (
             response.data.map((note) => {
               return (
@@ -35,9 +35,10 @@ const SearchPage = ({ params }: { params: { key: string } }) => {
               );
             })
           ) : (
-            <div className="flex flex-col items-center justify-center px-4 py-8 mx-auto my-6">
+            <div className="">
+              {/* @Shikhasingh7468 Center the svg (use another) @lakshaykamat */}
               <NotFoundSVG />
-            </div>
+            </div>  
           )}
         </div>
       </main>

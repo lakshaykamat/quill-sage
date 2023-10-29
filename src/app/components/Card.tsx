@@ -164,7 +164,7 @@ export const Cardv2 = ({
     );
   });
   return (
-    <div className="flex flex-col items-start rounded-lg  p-6 bg-[#f0f0f0] bg-netral-500 bg-[#FFFAFA] drop-shadow-md">
+    <div className="flex flex-col items-start rounded-lg  p-6 bg-netral-500 bg-[#FFFAFA] drop-shadow-md">
       <div className="flex justify-between">
           <h4 title={title} className="text-black">
             {short_title}
@@ -175,7 +175,7 @@ export const Cardv2 = ({
         dangerouslySetInnerHTML={{
           __html: removeAllTagsAndWrapInParagraph(description),
         }}
-        className="text-[#34495e] grow text-sm"
+        className="text-[#34495e] grow text-sm min-w-max"
       ></p>
       <div className="flex justify-between">
         <div className="flex items-center gap-3">
