@@ -322,3 +322,34 @@ export const deleteFolder = async (id: string) => {
         }
 
 }
+
+export const loginUser = async(email:String,password:String)=>{
+    let data = JSON.stringify({
+        "username": email,
+        "password": password
+      });
+      let config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/auth/login`,
+        headers: { 
+          'Content-Type': 'application/json',
+        },
+        data : data,
+        withCredentials: true
+      };
+
+      try {
+        const response = await axios.request(config);
+        if(response.data === "Something went wrong"){
+            return {error:true,message:response.data}
+            // setRegisterFrom({...RegisterFrom,error:response.data})
+        }else{
+            return {error:false,message:null}
+            // router.push("http://localhost:3000")
+        }
+      }
+      catch (error) {
+        console.log(error);
+      }
+}

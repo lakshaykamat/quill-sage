@@ -53,7 +53,7 @@ const LoginForm = () => {
                 <div className="mb-6">
                     <label
                         htmlFor="email"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        className="block mb-2 text-sm font-medium text-gray-900 "
                     >
                         Email
                     </label>
@@ -62,7 +62,7 @@ const LoginForm = () => {
                         id="email"
                         name="username"
                         onChange={(e)=>setLoginForm({...LoginForm,username:e.target.value})}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         placeholder="thisislakahaykamat@gmail.com"
                         required
                     />
@@ -70,7 +70,7 @@ const LoginForm = () => {
                 <div className="mb-6">
                     <label
                         htmlFor="password"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        className="block mb-2 text-sm font-medium text-gray-900"
                     >
                         Password
                     </label>
@@ -80,7 +80,7 @@ const LoginForm = () => {
                         name='password'
                         onChange={(e)=>setLoginForm({...LoginForm,password:e.target.value})}
                         
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         required
                     />
                 </div>
