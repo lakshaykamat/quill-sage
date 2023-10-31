@@ -4,19 +4,18 @@ import { fetchUser, fetchUserNote } from "@/app/utils/api/user";
 import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import Header from "../components/Header";
-import { ProfileCard } from "../components/ProfileCards";
+import Card from "../../components/Card";
+
 const ProfilePage = ({ params }: { params: { userid: string } }) => {
     const { userid } = params
     const user_details = useQuery({
         queryKey: ["fetch_user"],
-        queryFn: () => {
-            return fetchUser(userid);
-        },
+        queryFn: () => fetchUser(userid)
     });
     const user_notes = useQuery({
         queryKey: ["fetch_user_notes"],
         queryFn: () => user_details.data && fetchUserNote(user_details.data._id),
-        enabled: user_details.isSuccess
+        enabled: user_details.data != null
     });
     if (user_details.isLoading) return <h1>Loading...</h1>
     if (user_details.isError) return notFound()
@@ -34,11 +33,11 @@ const ProfilePage = ({ params }: { params: { userid: string } }) => {
             <hr />
 
             {user_notes.isLoading ? <h1>Loading</h1> :
-                <div className="grid grid-cols-1 gap-5 mx-5 my-3 lg:grid-cols-3 sm:grid-cols-2">
+                <div className="grid grid-cols-3 gap-5 mb-12">
                     {
                         user_notes.data.map((note: Note) => {
                             return (
-                                <ProfileCard
+                                <Card
                                     key={note._id}
                                     note_id={note._id}
                                     user_id={note.user_id}
