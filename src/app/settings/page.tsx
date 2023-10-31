@@ -22,13 +22,13 @@ const Settings = () => {
       <div className="flex gap-1">
         <button
           onClick={deleteAllData}
-          className="px-2 py-2 text-white bg-red-500 rounded hover:bg-red-700"
+          className="bg-red-700 rounded button-1 hover:bg-red-800"
         >
           Delete all data
         </button>
         <button
           onClick={log}
-          className="px-2 py-2 text-white bg-blue-500 rounded"
+          className=" button-1"
         >
           Login with another account
         </button>
