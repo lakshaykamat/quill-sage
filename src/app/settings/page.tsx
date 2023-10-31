@@ -19,7 +19,7 @@ const Settings = () => {
   return (
     <div className="max-w-6xl mx-auto">
       <h1 className="mb-4">Settings</h1>
-      <div className="flex gap-1">
+      <div className="flex gap-3">
         <button
           onClick={deleteAllData}
           className="bg-red-700 rounded button-1 hover:bg-red-800"

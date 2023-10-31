@@ -51,15 +51,16 @@ const Header = ({
                             />
                         </form>
                     ) : (
-                        <p className="flex items-center gap-2 text-gray-500">
+                        <span className="flex items-center gap-2 text-sm text-gray-500">
                             {bio}
                             <MdCreate
+                            className=""
                                 onClick={() => setInputBox({ ...inputBox, status: true })}
                             />
-                        </p>
+                        </span>
                     )
                 ) : (
-                    <p>{bio}</p>
+                    <span className="text-sm">{bio}</span>
                 )}
             </div>
         </div>

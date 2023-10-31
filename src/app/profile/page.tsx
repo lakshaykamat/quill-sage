@@ -6,6 +6,7 @@ import { FormEvent, useState } from "react";
 import Header from "./components/Header";
 import { ProfileCard } from "./components/ProfileCards";
 import { NotFoundSVG } from "../assets/Illustrations";
+import Card from "../components/Card";
 
 const ProfilePage = () => {
   const [inputBox, setInputBox] = useState({ status: false, text: "" });
@@ -40,17 +41,16 @@ const ProfilePage = () => {
         setInputBox={setInputBox}
         username={user_details.data.username}
       />
-      <hr />
 
       {user_notes.isLoading ? (
         <h1>Loading</h1>
       ) : (
         user_notes.data.length === 0 ? <NotFoundSVG/>
           :
-          <div className="grid grid-cols-1 gap-5 mx-5 my-3 lg:grid-cols-3 sm:grid-cols-2">
+          <div className="grid grid-cols-3 gap-5 mb-12">
             {user_notes.data.map((note: Note) => {
               return (
-                <ProfileCard
+                <Card
                   key={note._id}
                   note_id={note._id}
                   user_id={note.user_id}

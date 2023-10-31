@@ -1,6 +1,5 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 import { fetchAllTags } from "./utils/api/tags";
 import { fetchNotesOnFeed } from "./utils/api/notes";
 import { Note } from "./types";
