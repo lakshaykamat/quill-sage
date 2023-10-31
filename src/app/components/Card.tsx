@@ -175,7 +175,7 @@ export const Cardv2 = ({
         dangerouslySetInnerHTML={{
           __html: removeAllTagsAndWrapInParagraph(description),
         }}
-        className="text-[#34495e] grow text-sm min-w-max"
+        className="text-[#34495e] grow text-sm"
       ></p>
       <div className="flex justify-between">
         <div className="flex items-center gap-3">
