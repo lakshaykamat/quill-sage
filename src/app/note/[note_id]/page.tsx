@@ -1,17 +1,23 @@
 "use client";
-import { useUserContext } from "@/app/context/user";
 import { getDate } from "@/app/lib/getDate";
-import { Note, User } from "@/app/types";
+import { Note } from "@/app/types";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { PLACEHOLDER_LIKE_ICON, SET_LIKE_ICON } from "@/app/assets/Icons";
-import { fetchUser } from "../../utils/api/user";
+import { fetchUser, userDetails } from "../../utils/api/user";
 import { fetchNote, updateNote } from "../../utils/api/notes";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const NotePage = ({ params }: { params: { note_id: string } }) => {
+  const router = useRouter()
+  const userQuery = useQuery({queryKey: ["current_user"], queryFn: userDetails,refetchInterval:5000}) 
+  if(userQuery.error) {
+    router.push('http://localhost:3000/login')
+  } 
   const { note_id } = params;
-  const { current_user }: { current_user: User } = useUserContext();
+  const  current_user  = userQuery.data && userQuery.data;
 
   const note = useQuery({
     queryKey: ["fetch_note"],
@@ -20,13 +26,14 @@ const NotePage = ({ params }: { params: { note_id: string } }) => {
   const user = useQuery({
     queryKey: ["fetch_user"],
     queryFn: () => note.data && fetchUser(note.data.user_id),
-    enabled: note.isSuccess,
+    enabled: note.data!=null,
   });
 
   if (note.isLoading) return <h1>Loading...</h1>;
   if (note.isError) return notFound();
 
   const giveLike = async (that_note: Note) => {
+    if(!current_user) return
     try {
       //If user already likes the note
       if (that_note.likes.some((item) => item.id === current_user._id)) {
@@ -70,7 +77,7 @@ const NotePage = ({ params }: { params: { note_id: string } }) => {
                   src={user.data.avatar}
                   alt="User"
                 />
-                <span className="ml-3 text-sm">{user.data.username}</span>
+                <Link href={`/profile/${user.data._id}`} className="ml-3 text-sm">{user.data.username}</Link>
               </>
             )}
           </div>
@@ -84,7 +91,7 @@ const NotePage = ({ params }: { params: { note_id: string } }) => {
           className="flex items-center gap-1"
         >
           {note.data.likes.some(
-            (item: { id: string }) => item.id === current_user._id
+            (item: { id: string }) => item.id === current_user?._id
           ) ? (
             <SET_LIKE_ICON classes={"text-red-500"} />
           ) : (

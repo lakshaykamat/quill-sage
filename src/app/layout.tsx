@@ -1,7 +1,6 @@
 "use client";
 import "./styles/globals.css";
 import { Inter } from "next/font/google";
-import Context from "./context/user.js";
 import NavBarAndSideBar from "./components/NavBarAndSideBar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -21,10 +20,10 @@ export default function RootLayout({
           <link rel="icon" href="/src/app/favicon.ico" sizes="any" />
         </head>
         <body className={`${inter.className} bg-neutral-200`}>
-          <Context>
+          {/* <Context> */}
             <NavBarAndSideBar />
             {children}
-          </Context>
+          {/* </Context> */}
           <ReactQueryDevtools />
         </body>
       </html>

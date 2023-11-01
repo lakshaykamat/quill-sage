@@ -1,5 +1,5 @@
 import '../../../../styles/editor.css'
-import { useUserContext } from "@/app/context/user";
+import { useRouter } from 'next/navigation';
 import { changeVisibilty } from "@/app/lib";
 import { getHTML } from "@/app/lib/getHTML";
 import MenuBar from "@/app/components/Menubar";
@@ -13,7 +13,8 @@ import { BsLockFill, BsUnlockFill } from "react-icons/bs";
 import { useEffect, useState } from "react"
 import { MdSave, MdVisibility, MdVisibilityOff } from 'react-icons/md'
 import { updateNote } from '@/app/utils/api/notes';
-import { tap } from 'node:test/reporters';
+import { useQuery } from '@tanstack/react-query';
+import { userDetails } from '@/app/utils/api/user';
 
 type EditorProps = {
   content: string | undefined,
@@ -25,7 +26,12 @@ type EditorProps = {
 }
 
 const Editor = (props: EditorProps) => {
-  const { current_user }: { current_user: User } = useUserContext()
+  const router = useRouter()
+  const userQuery = useQuery({queryKey: ["current_user"], queryFn:userDetails,refetchInterval:5000})
+  if(userQuery.error) {
+    router.push('http://localhost:3000/login')
+  } 
+  const  current_user = userQuery.data && userQuery.data
   const [title, setTitle] = useState(props.title === undefined ? "" : props.title);
   const [isEditable, setIsEditable] = useState(true);
   const [isPrivate, setIsPrivate] = useState(props.visibility)
@@ -52,6 +58,7 @@ const Editor = (props: EditorProps) => {
   }, [isEditable, editor]);
 
   const save = async () => {
+    if(!current_user) return
     //Create Save function to update a note
 
     try {
