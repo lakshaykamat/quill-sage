@@ -39,3 +39,14 @@ export const deleteData = async () => {
   });
   return response.data;
 };
+
+
+export const loginUser = async (data: { username: String, password: String }) => {
+  const response = await API.post(`/auth/login`, { ...data }, { withCredentials: true })
+  return response.data
+}
+
+export const registerUser = async (data: { username: String, password: String, email: String }) => {
+  const response = await API.post(`/auth/register`, { ...data }, { withCredentials: true })
+  return response.data
+}
