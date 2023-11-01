@@ -1,57 +1,36 @@
 "use client"
-import axios from 'axios'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { FcGoogle } from 'react-icons/fc'
-import LoginForm from '../login/page'
-import { loginUser } from '../lib'
+import { registerUser } from '../utils/api/user'
+import { useMutation } from '@tanstack/react-query'
+import Link from 'next/link'
 
 const RegisterFormPage = () => {
     const router = useRouter()
     const [RegisterFrom, setRegisterFrom] = useState<{ username: String, email: String, password: String, error: String }>({ username: "", email: "", password: "", error: "" })
 
-    const registerUser = async(e: { preventDefault: () => void }) => {
+    const registerMutaion = useMutation({
+        mutationFn:registerUser,
+        onSuccess:()=>router.push(`http://localhost:3000/login`),
+        onError:(err)=> {
+            //@ts-ignore
+            const msg = err?.response?.data?.message
+            setRegisterFrom({...RegisterFrom,error:msg})
+        }
+    })
+
+    const handleSubmit = (e: { preventDefault: () => void })=>{
         e.preventDefault()
-        let data = JSON.stringify({
-            "username": RegisterFrom.username,
-            "password": RegisterFrom.password,
-            "email": RegisterFrom.email
-        });
-
-        let config = {
-            method: 'post',
-            maxBodyLength: Infinity,
-            url: 'http://localhost:8080/auth/register',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            data: data
-        };
-
-
-        try {
-            const response = await axios.request(config);
-            if(response.data.error){
-             
-            }else{
-                // router.push('http://localhost:3000/login')
-                const res = await loginUser(RegisterFrom.email,RegisterFrom.password)
-                if(res?.error){
-                    setRegisterFrom({...RegisterFrom,error:res.message})
-                }else{
-                    router.push('http://localhost:3000/')
-                }
-            }
-        }
-        catch (error) {
-            console.log(error);
-        }
-
-
+        registerMutaion.mutate({
+            username:RegisterFrom.username,
+            email:RegisterFrom.email,
+            password:RegisterFrom.password
+        })
     }
     return (
         <main className='max-w-lg mx-auto my-12 px-7'>
-            <form className='flex flex-col' onSubmit={registerUser} >
+            <form className='flex flex-col' onSubmit={handleSubmit} >
                 <h2 className='mb-2'>Register</h2>
                 <div className="mb-6">
                     <label
@@ -82,8 +61,8 @@ const RegisterFormPage = () => {
                         id="email"
                         name="email"
                         onChange={(e) => setRegisterFrom({ ...RegisterFrom, email: e.target.value })}
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="thisislakahaykamat@gmail.com"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:outline-blue-200  focus:outline-4 focus:outline block w-full p-2.5"
+                        placeholder="lakahaykamat.dev@gmail.com"
                         required
                     />
                 </div>
@@ -100,24 +79,26 @@ const RegisterFormPage = () => {
                         name='password'
                         placeholder='******'
                         onChange={(e) => setRegisterFrom({ ...RegisterFrom, password: e.target.value })}
-
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:outline-blue-200  focus:outline-4 focus:outline block w-full p-2.5"
                         required
                     />
                 </div>
 
                 <button
                     type="submit"
-                    className="button-1"
+                    className={`button-1 ${registerMutaion.isLoading && "opacity-70"}`}
+                    disabled={registerMutaion.isLoading}
                 >
-                    Register
+                    {registerMutaion.isLoading ? "Loading..." : "Register"}
                 </button>
             </form>
             <button onClick={() => { }} className='w-full text-sm focus:ring-4 hover:bg-gray-100 flex gap-3 font-medium focus:outline-none focus:ring-blue-300 mt-5 text-center justify-center rounded drop-shadow bg-white px-5 py-2.5 items-center my-2'>
                 <FcGoogle className='text-3xl' />
                 <span>Sign in With Google</span>
             </button>
-            {RegisterFrom.error && <p className='my-2 text-sm text-red-400'>{RegisterFrom.error}</p>}
+                <p className='my-2 text-sm text-right'>Already have an account? <Link href="/login" className='underline'>Login</Link></p>
+            {RegisterFrom.error && <p className='my-2 text-sm font-bold text-center text-red-400'>{RegisterFrom.error}</p>}
+           
 
         </main>
     )
