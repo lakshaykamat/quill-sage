@@ -1,6 +1,13 @@
 # Snap Note
 
 Snap Notes is a web application built with Next.js that allows users to create, store, manage, and share notes. The application provides two types of notes: public notes and private notes, giving users the option to control the visibility of their notes. This README provides an overview of the project and instructions for setting up and running the frontend application.
+# Screenshots
+![image](https://github.com/lakshaykamat/snap-note/assets/93321969/11200e80-690f-4d99-a083-64ec233f12a2)
+![image](https://github.com/lakshaykamat/snap-note/assets/93321969/13c12a98-ed90-4fdb-a041-a8f6814b9fbf)
+![image](https://github.com/lakshaykamat/snap-note/assets/93321969/aec17861-cc5e-4075-8d73-a73c7267c640)
+![image](https://github.com/lakshaykamat/snap-note/assets/93321969/c1240852-2056-4fe5-98ee-b631dacbb0f7)
+
+
 
 ## Table of Contents
 
