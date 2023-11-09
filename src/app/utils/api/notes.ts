@@ -31,3 +31,17 @@ export const searchNote = async (key: string): Promise<Note[]> => {
   });
   return response.data;
 };
+
+export const createNote = async ({ data }: { data: { title: String, content: String, tags: Array<String>, folderId: String } }) => {
+  try {
+    const response = await API.post('/api/v1/notes', {...data}, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

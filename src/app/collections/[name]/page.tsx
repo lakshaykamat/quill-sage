@@ -1,16 +1,14 @@
 "use client";
-import { useState, useEffect } from "react";
-import { Folder, Note } from "@/app/types";
+import { useState } from "react";
+import {  Note } from "@/app/types";
 import { AiFillFileText } from "react-icons/ai";
-import { removeEncodingSting } from "@/app/lib/removeEncodingString";
-import { getAllFolders } from "@/app/lib/";
-import { createNote, getFolderNotes } from "@/app/lib";
 import { notFound } from "next/navigation";
 import File from "../components/File";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useQuery } from "@tanstack/react-query";
 import { fetchFolderByName } from "@/app/utils/api/folder";
+import { createNote } from "@/app/utils/api/notes";
 
 const Page = ({ params }: { params: { name: string } }) => {
   const { name } = params; //folder name
@@ -25,7 +23,7 @@ const Page = ({ params }: { params: { name: string } }) => {
   return (
     <div className="flex-col max-w-6xl gap-1 mx-5 mt-6 lex xl:mx-auto sm:mt-12">
       <div>
-        <h2 className="mb-6">{removeEncodingSting(name)}</h2>
+        <h2 className="mb-6">{decodeURI(name)}</h2>
         <button
           onClick={() => setInputBox({ ...inputBox, status: true })}
           className="flex items-center gap-2 button-1"
@@ -78,13 +76,24 @@ const Page = ({ params }: { params: { name: string } }) => {
     if (!folderData.data.notes) throw new Error("Notes is null");
 
     //Creating Note with Empty data
-    const newNote = await createNote({
-      title: inputBox.text,
-      content: " ",
-      tags: [],
-      folderId: folderData.data.folder[0]._id,
-    });
-
+    // const newNote = await createNote({
+    //   title: inputBox.text,
+    //   content: " ",
+    //   tags: [],
+    //   folderId: folderData.data.folder[0]._id,
+    // });
+    const data:{
+      title:String,
+      content:String,
+      tags:Array<String>
+      folderId:String
+    } = {
+      title:inputBox.text,
+      content:" ",
+      tags:[],
+      folderId:folderData.data.folder[0]._id
+    }
+    await createNote({data})
     //setting new note to note
     // setCollectionNotes([...collectionNotes, newNote]);
     folderData.refetch();

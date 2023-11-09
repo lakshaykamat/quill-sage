@@ -96,7 +96,7 @@ const RegisterFormPage = () => {
                 <FcGoogle className='text-3xl' />
                 <span>Sign in With Google</span>
             </button>
-                <p className='my-2 text-sm text-right'>Already have an account? <Link href="/login" className='underline'>Login</Link></p>
+                <p className='my-2 text-sm text-right'>Already have an account? <Link href="/login" className='text-blue-700 underline'>Login</Link></p>
             {RegisterFrom.error && <p className='my-2 text-sm font-bold text-center text-red-400'>{RegisterFrom.error}</p>}
            
 

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { loginUser } from '../utils/api/user';
 import { useMutation } from '@tanstack/react-query';
+import Link from 'next/link';
 
 type User = {
     username:String
@@ -91,6 +92,7 @@ const LoginForm = () => {
                 <FcGoogle className='text-3xl' />
                 <span>Sign in With Google</span>
             </button>
+            <p className='my-2 text-sm text-right'>Don&apos;t have an account? <Link href="/register" className='text-blue-700 underline'>Register</Link></p>
             {LoginForm.error && <p className='my-2 text-sm text-red-400'>{LoginForm.error}</p>}
 
         </main>

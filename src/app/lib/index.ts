@@ -186,7 +186,7 @@ export const createFolder = async (name: string) => {
 
 }
 
-export const createNote = async (req: { title: string, content: string, tags: Array<string>, folderId: string }) => {
+export const createNote = async (req: { title: String, content: String, tags: Array<String>, folderId: String }) => {
     let data = JSON.stringify({
         "title": req.title,
         "content": req.content,
@@ -207,6 +207,7 @@ export const createNote = async (req: { title: string, content: string, tags: Ar
 
     try {
         const response = await axios.request(config);
+        console.log(response.data)
         return response.data
     }
     catch (error) {
@@ -259,18 +260,18 @@ export const getFolderNotes = async (id: string) => {
 
 }
 
-export const changeVisibilty = async (id: string) => {
-
+export const changeVisibilty = async (id: string,isPrivate:Boolean) => {
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/notes/visibility/${id}`,
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/v1/notes/${id}/?visibility=${isPrivate ? "private" : "public"}`,
         withCredentials: true,
         headers: {}
     };
 
     try {
         const response = await axios.request(config);
+        console.log(response.data)
         return response.data
     }
     catch (error) {

@@ -73,41 +73,52 @@ const Navbar = ({ setSideBarOpen, userData }: NavBarProps) => {
                 </button>
               </div>
             </div>
+            {
+              !userData &&
+              <div className="flex gap-2">
+                <button className="text-gray-700 border-2 border-blue-400 border-solid hover:text-white bg-inherit hover:bg-blue-400 button-1">Register</button>
+                <button className="button-1">Login</button>
+              </div>
+            }
+            {
+              userData &&
+              <div className="flex items-center gap-10">
+                <>
+                  <Link href="/" title="Home" className="hidden md:block">
+                    {HOME_ICON}
+                  </Link>
+                  <Link
+                    href="/collections"
+                    title="Collection"
+                    className="hidden md:block"
+                  >
+                    {Collection_ICON}
+                  </Link>
+                  <Link
+                    href="/settings"
+                    title="Settings"
+                    className="hidden md:block"
+                  >
+                    {SETTINGS_ICON}
+                  </Link>
+                </>
 
-            <div className="flex items-center gap-10">
-              <Link href="/" title="Home" className="hidden md:block">
-                {HOME_ICON}
-              </Link>
-              <Link
-                href="/collections"
-                title="Collection"
-                className="hidden md:block"
-              >
-                {Collection_ICON}
-              </Link>
-              <Link
-                href="/settings"
-                title="Settings"
-                className="hidden md:block"
-              >
-                {SETTINGS_ICON}
-              </Link>
-              <Link href={"/profile"}>
-                {userData ? (
-                  <div className="rounded-full p-[3px] outline-1 outline outline-gray-600 ">
-                    <Image
-                      width={40}
-                      height={40}
-                      className="rounded-full drop-shadow"
-                      src={userData.avatar}
-                      alt="User avatar"
-                    />
-                  </div>
-                ) : (
-                  USER_ICON
-                )}
-              </Link>
-            </div>
+                <Link href={"/profile"}>
+                  {userData ? (
+                    <div className="rounded-full p-[3px] outline-1 outline outline-gray-600 ">
+                      <Image
+                        width={40}
+                        height={40}
+                        className="rounded-full drop-shadow"
+                        src={userData.avatar}
+                        alt="User avatar"
+                      />
+                    </div>
+                  ) : (
+                    USER_ICON
+                  )}
+                </Link>
+              </div>}
           </div>
         </div>
       </nav>

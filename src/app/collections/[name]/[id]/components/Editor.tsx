@@ -92,7 +92,7 @@ const Editor = (props: EditorProps) => {
         }
 
         <button onClick={() => {
-          changeVisibilty(props.noteid)
+          changeVisibilty(props.noteid,isPrivate)
           setIsPrivate((prev) => !prev)
         }} className="flex gap-1 px-2 py-1 text-gray-300 rounded drop-shadow bg-accent">
           {isPrivate ? "Private" : "Public"}
